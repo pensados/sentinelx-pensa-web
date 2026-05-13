@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX — AI agent for your Linux servers</title>
+
+<meta name="description" content="Connect AI to your Linux servers via MCP. One-line install, OAuth via Google, multi-host dashboard. Open-source agent, Apache 2.0 license.">
+<meta name="keywords" content="sentinelx, MCP server, model context protocol, server agent, Claude MCP, ChatGPT MCP, AI ops, server automation, open source, OAuth">
+<meta name="author" content="pensa.ar">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sentinelx.pensa.ar/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sentinelx.pensa.ar/">
+<meta property="og:title" content="SentinelX — AI agent for your Linux servers">
+<meta property="og:description" content="Connect Claude and ChatGPT to your Linux servers in 60 seconds. One-line install, OAuth via Google, multi-host dashboard.">
+<meta property="og:site_name" content="SentinelX">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sentinelx.pensa.ar/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SentinelX — AI agent for your Linux servers">
+<meta name="twitter:description" content="Connect Claude and ChatGPT to your Linux servers in 60 seconds. One-line install, OAuth via Google.">
+<meta name="twitter:image" content="https://sentinelx.pensa.ar/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SentinelX",
+  "url": "https://sentinelx.pensa.ar",
+  "description": "Managed MCP service that lets Claude, ChatGPT and other AI tools manage your Linux servers via the Model Context Protocol. One-line install, OAuth via Google, multi-host dashboard. Open-source agent.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Linux",
+  "license": "https://opensource.org/licenses/Apache-2.0",
+  "codeRepository": "https://github.com/pensados/sentinelx-cloud-core",
+  "author": { "@type": "Organization", "name": "pensa.ar", "url": "https://pensa.ar" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f; --bg2: #0f1216; --bg3: #141820;
+    --surface: #1a1f28; --surface2: #222834;
+    --border: #2a3040; --border2: #3a4558;
+    --fg: #d4dae8; --fg2: #8a96b0; --fg3: #5a6478;
+    --accent: #4af0a0; --accent2: #2acc7a;
+    --accent-dim: rgba(74,240,160,0.08); --accent-dim2: rgba(74,240,160,0.15);
+    --amber: #f0b44a; --blue: #4a9ef0; --red: #f04a6a; --purple: #9a7af0;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px; opacity: 0.25; pointer-events: none; z-index: 0;
+  }
+  * { position: relative; z-index: 1; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,12,15,0.85); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .nav-logo { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+  .nav-logo::before { content: '▸'; animation: blink 1.2s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--fg2); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta { font-family: var(--mono); font-size: 0.75rem; color: var(--bg); background: var(--accent); padding: 0.4rem 1rem; text-decoration: none; font-weight: 600; letter-spacing: 0.05em; transition: background 0.2s; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+  .nav-cta:hover { background: var(--accent2); }
+  .hero { padding: 6rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+  .hero-tag { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  h1 { font-family: var(--mono); font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 0.5rem; }
+  h1 .dim { color: var(--fg3); font-weight: 300; } h1 .hi { color: var(--accent); }
+  .hero-sub { font-family: var(--sans); font-size: 1.1rem; color: var(--fg2); max-width: 620px; margin: 1.5rem 0 3rem; font-weight: 300; line-height: 1.7; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+  .btn-primary { font-family: var(--mono); font-size: 0.85rem; font-weight: 600; color: var(--bg); background: var(--accent); padding: 0.75rem 1.75rem; text-decoration: none; letter-spacing: 0.05em; transition: all 0.2s; clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); display: inline-flex; align-items: center; gap: 0.5rem; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-secondary { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); border: 1px solid var(--border2); padding: 0.75rem 1.75rem; text-decoration: none; letter-spacing: 0.05em; transition: all 0.2s; background: transparent; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .btn-secondary:hover { border-color: var(--accent); background: var(--accent-dim); }
+  .install-hero { background: var(--bg2); border: 1px solid var(--accent); padding: 2rem; font-family: var(--mono); font-size: 0.85rem; color: var(--fg2); line-height: 2; max-width: 720px; margin-bottom: 2rem; box-shadow: 0 0 40px rgba(74,240,160,0.06); }
+  .install-hero::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1.25rem; letter-spacing: 0.3em; }
+  .install-hero .prompt { color: var(--accent); }
+  .install-hero .cmd { color: var(--fg); }
+  .install-hero .comment { color: var(--fg3); font-style: italic; }
+  .arch-block { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; font-family: var(--mono); font-size: 0.8rem; color: var(--fg2); line-height: 1.9; max-width: 720px; margin-bottom: 5rem; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
+  .arch-block::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1.25rem; letter-spacing: 0.3em; }
+  .arch-block .c-green{color:var(--accent)} .arch-block .c-amber{color:var(--amber)} .arch-block .c-blue{color:var(--blue)} .arch-block .c-dim{color:var(--fg3)} .arch-block .c-comment{color:var(--fg3);font-style:italic}
+  .stat-strip { display: flex; gap: 0; border: 1px solid var(--border); margin-bottom: 5rem; background: var(--border); gap: 1px; flex-wrap: wrap; }
+  .stat { background: var(--bg2); padding: 1.5rem 2.5rem; flex: 1; min-width: 160px; }
+  .stat-val { font-family: var(--mono); font-size: 1.8rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.75rem; color: var(--fg3); font-weight: 300; letter-spacing: 0.05em; }
+  section { padding: 5rem 0; border-top: 1px solid var(--border); }
+  .section-label { font-family: var(--mono); font-size: 0.7rem; color: var(--fg3); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  h2 { font-family: var(--mono); font-size: 1.6rem; font-weight: 500; color: var(--fg); margin-bottom: 1rem; letter-spacing: -0.01em; }
+  h2 .accent { color: var(--accent); }
+  .section-intro { color: var(--fg2); max-width: 620px; margin-bottom: 3rem; font-weight: 300; font-size: 1rem; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5px; background: var(--border); border: 1px solid var(--border); }
+  .step { background: var(--bg2); padding: 2rem; transition: background 0.2s; }
+  .step:hover { background: var(--bg3); }
+  .step-num { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .step h3 { font-family: var(--mono); font-size: 0.95rem; font-weight: 500; color: var(--fg); margin-bottom: 0.5rem; }
+  .step p { font-size: 0.875rem; color: var(--fg2); font-weight: 300; line-height: 1.6; }
+  .security-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .sec-card { border: 1px solid var(--border); padding: 1.5rem; background: var(--bg2); }
+  .sec-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .sec-card h3 { font-family: var(--mono); font-size: 0.85rem; font-weight: 500; color: var(--fg); margin-bottom: 0.5rem; }
+  .sec-card p { font-size: 0.82rem; color: var(--fg2); font-weight: 300; line-height: 1.6; }
+  .code-block { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 2rem; font-family: var(--mono); font-size: 0.8rem; line-height: 1.8; color: var(--fg2); overflow-x: auto; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
+  .code-block .prompt{color:var(--accent);user-select:none} .code-block .cmd{color:var(--fg)} .code-block .comment{color:var(--fg3);font-style:italic} .code-block .str{color:var(--amber)} .code-block .kw{color:var(--purple)}
+
+  .mcp-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  @media (max-width: 700px) { .mcp-split { grid-template-columns: 1fr; } }
+  .mcp-text p { color: var(--fg2); font-weight: 300; margin-bottom: 1rem; font-size: 0.95rem; }
+  .client-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  .client-item { display: flex; align-items: center; gap: 0.75rem; font-family: var(--mono); font-size: 0.8rem; color: var(--fg2); }
+  .client-dot { width: 6px; height: 6px; background: var(--accent); flex-shrink: 0; }
+  .output-box { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 1.5rem 2rem; font-family: var(--mono); font-size: 0.78rem; line-height: 1.9; color: var(--fg2); margin-top: 1rem; }
+  .output-box .hi { color: var(--accent); } .output-box .dim { color: var(--fg3); }
+
+  /* Self-hosted alternative — compact, intentionally smaller than the cloud sections */
+  .alt-card { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; margin-top: 1rem; }
+  .alt-card h3 { font-family: var(--mono); font-size: 1rem; font-weight: 500; color: var(--fg); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .alt-card > p { font-size: 0.9rem; color: var(--fg2); font-weight: 300; margin-bottom: 1.25rem; line-height: 1.6; max-width: 640px; }
+  .alt-card .install-cmd { background: var(--bg); border: 1px solid var(--border); padding: 0.75rem 1rem; font-family: var(--mono); font-size: 0.8rem; color: var(--fg); overflow-x: auto; white-space: nowrap; margin-bottom: 0.75rem; }
+  .alt-card .install-cmd .prompt { color: var(--accent); }
+  .alt-card .alt-actions { margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .badge { font-size: 0.6rem; background: var(--accent); color: var(--bg); padding: 0.15rem 0.5rem; font-weight: 600; letter-spacing: 0.05em; }
+  .badge.gray { background: var(--surface2); color: var(--fg2); }
+
+  footer { border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-left { font-family: var(--mono); font-size: 0.75rem; color: var(--fg3); }
+  .footer-left strong { color: var(--accent); font-weight: 500; }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .hero-tag,h1,.hero-sub,.hero-ctas,.install-hero { animation: fadeUp 0.6s ease both; }
+  .hero-sub{animation-delay:0.1s} .hero-ctas{animation-delay:0.2s} .install-hero{animation-delay:0.3s}
+  ::-webkit-scrollbar{width:4px;height:4px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--border2)} ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+  code { font-family: var(--mono); font-size: 0.85em; color: var(--accent); background: var(--accent-dim); padding: 0.1em 0.35em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">SentinelX</a>
+    <ul class="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#clients">AI clients</a></li>
+      <li><a href="#self-hosted">Self-hosted</a></li>
+    </ul>
+    <a class="nav-cta" href="https://get.sentinelx.app/about" target="_blank">Start free →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">managed cloud · open-source agent · Apache 2.0</div>
+  <h1>Connect AI to<br><span class="hi">your servers.</span></h1>
+  <p class="hero-sub">SentinelX lets Claude, ChatGPT and other AI tools manage your Linux servers via the Model Context Protocol. One command on each host, OAuth via Google, and a dashboard that shows your whole fleet in one place — without configuring DNS, certificates, or an identity provider.</p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="https://get.sentinelx.app/about" target="_blank">↓ Start free</a>
+    <a class="btn-secondary" href="https://mcp.sentinelx.app/dashboard" target="_blank">↗ See dashboard</a>
+    <a class="btn-secondary" href="https://github.com/pensados/sentinelx-cloud-core" target="_blank">↗ GitHub</a>
+  </div>
+
+  <div class="install-hero">
+<span class="comment"># one-line install on your Linux server</span>
+<span class="prompt">$</span> <span class="cmd">curl -fsSL https://get.sentinelx.app | sudo bash</span>
+
+<span class="comment"># the installer asks for an enrollment token</span>
+<span class="comment"># get one at https://mcp.sentinelx.app — sign in with Google,</span>
+<span class="comment"># click "+ Enroll a new host", paste the token. Done.</span>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat"><div class="stat-val">60s</div><div class="stat-label">to install</div></div>
+    <div class="stat"><div class="stat-val">multi</div><div class="stat-label">host fleet</div></div>
+    <div class="stat"><div class="stat-val">OAuth</div><div class="stat-label">via Google</div></div>
+    <div class="stat"><div class="stat-val">Apache</div><div class="stat-label">open agent</div></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-label">// how it works</div>
+    <h2>An <span class="accent">agent</span> on each host. A <span class="accent">hub</span> that handles the rest.</h2>
+    <p class="section-intro">The hub at <code>mcp.sentinelx.app</code> handles OAuth, identity, and the MCP protocol. The agent on your server only opens an outbound connection to the hub — no inbound ports, no public DNS for your host, no certificates to manage.</p>
+
+    <div class="arch-block">
+<span class="c-comment"># architecture (cloud-managed)</span>
+
+<span class="c-blue">Claude</span> / <span class="c-blue">ChatGPT</span> / <span class="c-blue">Cursor</span>
+    │
+    │  HTTPS + OAuth (Google sign-in)
+    ▼
+<span class="c-amber">mcp.sentinelx.app</span>          <span class="c-dim">← managed hub: OAuth, MCP, dashboard</span>
+    │
+    │  WebSocket (outbound from agent)
+    ▼
+<span class="c-green">sentinelx-cloud-core</span>       <span class="c-dim">← agent on your Linux server</span>
+    │
+    ├─ exec               <span class="c-dim">allowlisted commands only</span>
+    ├─ edit               <span class="c-dim">structured file edits, no shell quoting</span>
+    ├─ script_run         <span class="c-dim">temp bash / python3 scripts</span>
+    ├─ service            <span class="c-dim">registered service actions</span>
+    ├─ upload             <span class="c-dim">file upload (simple + chunked)</span>
+    └─ playbooks          <span class="c-dim">multi-step recipes the LLM can run</span>
+
+<span class="c-comment"># your servers never expose an inbound port to the internet.</span>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 — INSTALL</div>
+        <h3>One command, one minute</h3>
+        <p>Run the installer on your Linux server. It creates a system user, installs the agent under <code>/opt/sentinelx-cloud-core</code>, registers a systemd service, and connects to the hub.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02 — ENROLL</div>
+        <h3>Sign in with Google</h3>
+        <p>Visit <code>mcp.sentinelx.app</code>, sign in with Google, click <em>Enroll a new host</em>, and paste the token the installer asks for. Your server appears in the dashboard within seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03 — DASHBOARD</div>
+        <h3>See your fleet</h3>
+        <p>The dashboard lists every enrolled server with a status dot, hostname, agent version, and last-seen time. Label hosts, kick stale sessions, or unenroll — all from the browser.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04 — USE IT</div>
+        <h3>From any AI client</h3>
+        <p>Add <code>mcp.sentinelx.app</code> as an MCP connector in Claude or ChatGPT. The AI sees your hosts, can target them by name, and only runs operations the agent's allowlist permits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section id="security">
+  <div class="container">
+    <div class="section-label">// security model</div>
+    <h2>Least privilege, <span class="accent">by design.</span></h2>
+    <p class="section-intro">Every security decision in SentinelX is intentional and explicit. The agent is open source — you can audit exactly what runs on your server.</p>
+    <div class="security-grid">
+      <div class="sec-card"><div class="sec-icon">🔒</div><h3>Command allowlist</h3><p>The agent only runs commands explicitly listed in its policy. Anything not in the allowlist is rejected before execution. Servers, paths and arguments are validated against the policy too.</p></div>
+      <div class="sec-card"><div class="sec-icon">👤</div><h3>Isolated service user</h3><p>The agent runs as a dedicated <code>sentinelx</code> system user with no login shell. Its sudoers rule is scoped to the exact commands the policy permits.</p></div>
+      <div class="sec-card"><div class="sec-icon">🎟</div><h3>OAuth via Google</h3><p>The hub authenticates you via Google sign-in. Each session is a JWT with explicit scopes. The agent only accepts connections from the hub, signed with your account's identity.</p></div>
+      <div class="sec-card"><div class="sec-icon">🔑</div><h3>Outbound only</h3><p>The agent opens an outbound WebSocket to <code>mcp.sentinelx.app</code>. No inbound ports, no public DNS for your host, no certificates to manage. Your firewall stays closed.</p></div>
+      <div class="sec-card"><div class="sec-icon">📋</div><h3>Audit log</h3><p>Every operation is logged on the hub with the user, host, command, output, return code, and timestamp. Blocked operations are logged too.</p></div>
+      <div class="sec-card"><div class="sec-icon">🧰</div><h3>Open-source agent</h3><p>The agent is Apache 2.0-licensed and lives at <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank" style="color:var(--accent);text-decoration:none;">pensados/sentinelx-cloud-core</a>. Read it, fork it, run a fork — it's yours.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI CLIENTS -->
+<section id="clients">
+  <div class="container">
+    <div class="mcp-split">
+      <div class="mcp-text">
+        <div class="section-label">// AI clients</div>
+        <h2>Works with any <span class="accent">MCP client.</span></h2>
+        <p>SentinelX speaks the Model Context Protocol over Streamable HTTP. Connect it to Claude, ChatGPT or any MCP-compatible agent — the same hub URL works for all of them.</p>
+        <p>You sign in once with Google. From there, every AI client you connect sees the same fleet of hosts.</p>
+        <div class="client-list">
+          <div class="client-item"><div class="client-dot"></div> Claude (claude.ai, Claude Desktop, Claude Code)</div>
+          <div class="client-item"><div class="client-dot"></div> ChatGPT (via Connected Apps)</div>
+          <div class="client-item"><div class="client-dot"></div> Cursor, Windsurf, VS Code (MCP extension)</div>
+          <div class="client-item"><div class="client-dot"></div> Any MCP-compatible agent or script</div>
+        </div>
+        <div style="margin-top:2rem;padding:1.25rem 1.5rem;border:1px solid var(--border);background:var(--bg2);">
+          <div style="font-family:var(--mono);font-size:0.7rem;color:var(--fg3);letter-spacing:0.1em;margin-bottom:0.5rem;">// connect Claude in 30 seconds</div>
+          <div style="font-size:0.82rem;color:var(--fg2);font-weight:300;line-height:1.8;">
+            1. <strong style="color:var(--fg);">claude.ai → Settings → Connectors → Add custom connector</strong><br>
+            2. URL: <code>https://mcp.sentinelx.app/mcp</code><br>
+            3. Sign in with Google when prompted<br>
+            4. Ask Claude: <em>"list my hosts"</em>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="code-block" style="font-size:0.75rem;line-height:1.9;">
+<span class="comment"># tools the AI sees, per host</span>
+
+<span class="kw">sentinel_state</span>           <span class="comment"># host facts</span>
+<span class="kw">sentinel_capabilities</span>    <span class="comment"># what's allowed</span>
+<span class="kw">sentinel_exec</span>            <span class="comment"># run an allowlisted command</span>
+<span class="kw">sentinel_edit</span>            <span class="comment"># structured file edits</span>
+<span class="kw">sentinel_script_run</span>      <span class="comment"># temp bash / python script</span>
+<span class="kw">sentinel_service</span>         <span class="comment"># start/stop/restart/reload</span>
+<span class="kw">sentinel_upload_file</span>     <span class="comment"># upload to host</span>
+<span class="kw">sentinel_list_hosts</span>      <span class="comment"># multi-host fleet view</span>
+<span class="c-dim">...and more — see the agent's docs</span>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <div class="code-block" style="font-size:0.75rem;line-height:1.9;">
+<span class="comment"># open standards, no vendor lock-in</span>
+
+<span class="kw">protocol</span>      <span class="str">Model Context Protocol (MCP)</span>
+<span class="kw">transport</span>     <span class="str">Streamable HTTP</span>
+<span class="kw">auth</span>          <span class="str">OAuth 2.0 / OIDC + DCR</span>
+<span class="kw">identity</span>      <span class="str">Google sign-in</span>
+<span class="kw">agent</span>         <span class="str">Apache 2.0-licensed, open source</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SELF-HOSTED ALTERNATIVE -->
+<section id="self-hosted">
+  <div class="container">
+    <div class="section-label">// self-hosted alternative</div>
+    <h2>Want to run <span class="accent">your own</span> hub?</h2>
+    <p class="section-intro">If you'd rather run the entire stack yourself — including the OAuth provider — there's a Docker edition that bundles agent, MCP bridge, and Keycloak in one stack. Same MCP protocol, same security model, no managed service.</p>
+
+    <div class="alt-card">
+      <h3>SentinelX Docker <span class="badge gray">self-hosted</span></h3>
+      <p>One-line install: 4 containers (agent, MCP bridge, Keycloak, Postgres) on your own host. You bring DNS, certificates, and operational responsibility. Recommended if you want full data sovereignty or air-gapped deployments.</p>
+      <div class="install-cmd"><span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/pensados/sentinelx-docker/main/install.sh | bash</div>
+      <div class="alt-actions">
+        <a class="btn-secondary" href="https://github.com/pensados/sentinelx-docker" target="_blank" style="font-size:0.78rem;padding:0.6rem 1.25rem;">↗ sentinelx-docker</a>
+        <a class="btn-secondary" href="https://github.com/pensados/sentinelx-docker#readme" target="_blank" style="font-size:0.78rem;padding:0.6rem 1.25rem;">↗ Setup guide</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>SentinelX</strong> · Apache 2.0-licensed agent<br>
+      a <a href="https://pensa.ar/legal/marca/" style="color:var(--accent);text-decoration:none;">Pensa Software®</a> product · built by <a href="https://pensa.ar" style="color:var(--accent);text-decoration:none;">pensa.ar</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://get.sentinelx.app/about" target="_blank">install</a>
+      <a href="https://mcp.sentinelx.app/dashboard" target="_blank">dashboard</a>
+      <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank">agent (cloud)</a>
+      <a href="https://github.com/pensados/sentinelx-docker" target="_blank">docker (self-hosted)</a>
+      <a href="https://modelcontextprotocol.io" target="_blank">MCP</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
