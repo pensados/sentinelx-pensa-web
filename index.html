@@ -160,6 +160,7 @@
       <li><a href="#how">How it works</a></li>
       <li><a href="#security">Security</a></li>
       <li><a href="#clients">AI clients</a></li>
+      <li><a href="#dev">Dev workflows</a></li>
       <li><a href="#self-hosted">Self-hosted</a></li>
     </ul>
     <a class="nav-cta" href="https://get.sentinelx.app/about" target="_blank">Start free →</a>
@@ -316,6 +317,39 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEV WORKFLOWS -->
+<section id="dev">
+  <div class="container">
+    <div class="section-label">// beyond ops</div>
+    <h2>Persistent dev sessions, <span class="accent">with memory.</span></h2>
+    <p class="section-intro">Most AI coding tools start every session from zero — a fresh context, a stale <code>CLAUDE.md</code>, the same decisions explained again. SentinelX runs inside your chat, so the context, the rationale, and the history accumulate across days and weeks. Combine the agent with <code>git</code> on the same host and you get a remote dev environment where the AI actually remembers your project.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 — REFACTOR OVER DAYS</div>
+        <h3>Iterate on a repo across sessions</h3>
+        <p>Clone once, refactor over a week. The assistant remembers what you tried on Monday when you pick it up on Thursday — no scratchpad files to maintain, no re-explaining the constraints.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02 — DEBUG WITH HISTORY</div>
+        <h3>Bugs that need yesterday's context</h3>
+        <p><em>"Remember the timeout we saw last week? It came back."</em> The chat holds the thread; the agent re-runs the diagnostics on the live host, with the previous findings already in scope.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03 — DECISIONS THAT STICK</div>
+        <h3>Architecture rationale stays decided</h3>
+        <p>Why you picked Postgres over SQLite. Why the worker lives on a separate host. Why that endpoint is async. The reasoning lives in the conversation, not in scattered comments you'll forget to grep for.</p>
+      </div>
+    </div>
+
+    <div class="output-box" style="margin-top:3rem;">
+      <div style="font-family:var(--mono);font-size:0.65rem;color:var(--fg3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">// dogfooded</div>
+      <p style="font-size:0.95rem;color:var(--fg);font-weight:400;line-height:1.6;margin-bottom:0.5rem;">This site was built and is continuously updated <span class="hi">with SentinelX</span>.</p>
+      <p style="font-size:0.85rem;color:var(--fg2);font-weight:300;line-height:1.7;margin:0;">The agent edits <code>/var/www/sentinelx.pensa.ar/index.html</code> directly, with <code>git</code> tracking every change. <span class="dim">Including this paragraph.</span></p>
     </div>
   </div>
 </section>
