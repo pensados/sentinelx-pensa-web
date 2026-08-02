@@ -170,21 +170,18 @@
 <div class="hero">
   <div class="hero-tag">managed cloud · open-source agent · Apache 2.0</div>
   <h1>Connect AI to<br><span class="hi">your servers.</span></h1>
-  <p class="hero-sub">SentinelX lets Claude, ChatGPT and other AI tools manage your Linux servers via the Model Context Protocol. One command on each host, OAuth via Google, and a dashboard that shows your whole fleet in one place — without configuring DNS, certificates, or an identity provider.</p>
+  <p class="hero-sub">SentinelX connects Claude, ChatGPT and any MCP client to your Linux servers. One command per host, Google sign-in, your whole fleet in one dashboard.</p>
   <div class="hero-ctas">
     <a class="btn-primary" href="https://get.sentinelx.app/about" target="_blank">↓ Start free</a>
     <a class="btn-secondary" href="https://mcp.sentinelx.app/dashboard" target="_blank">↗ See dashboard</a>
     <a class="btn-secondary" href="https://github.com/pensados/sentinelx-cloud-core" target="_blank">↗ GitHub</a>
-    <a class="btn-secondary" href="https://chatgpt.com/apps/sentinelx/asdk_app_69f63e01766881919640f03b5e7912a5" target="_blank">↗ ChatGPT app</a>
   </div>
 
   <div class="install-hero">
 <span class="comment"># one-line install on your Linux server</span>
 <span class="prompt">$</span> <span class="cmd">curl -fsSL https://get.sentinelx.app | sudo bash</span>
 
-<span class="comment"># the installer asks for an enrollment token</span>
-<span class="comment"># get one at https://mcp.sentinelx.app — sign in with Google,</span>
-<span class="comment"># click "+ Enroll a new host", paste the token. Done.</span>
+<span class="comment"># then enroll it: mcp.sentinelx.app → "+ Enroll a new host" → paste token. Done.</span>
   </div>
 
   <div class="stat-strip">
@@ -200,7 +197,7 @@
   <div class="container">
     <div class="section-label">// how it works</div>
     <h2>An <span class="accent">agent</span> on each host. A <span class="accent">hub</span> that handles the rest.</h2>
-    <p class="section-intro">The hub at <code>mcp.sentinelx.app</code> handles OAuth, identity, and the MCP protocol. The agent on your server only opens an outbound connection to the hub — no inbound ports, no public DNS for your host, no certificates to manage.</p>
+    <p class="section-intro">The hub handles OAuth, identity and MCP. The agent only connects outbound — no inbound ports, no DNS, no certificates on your host.</p>
 
     <div class="arch-block">
 <span class="c-comment"># architecture (cloud-managed)</span>
@@ -213,14 +210,7 @@
     │
     │  WebSocket (outbound from agent)
     ▼
-<span class="c-green">sentinelx-cloud-core</span>       <span class="c-dim">← agent on your Linux server</span>
-    │
-    ├─ exec               <span class="c-dim">allowlisted commands only</span>
-    ├─ edit               <span class="c-dim">structured file edits, no shell quoting</span>
-    ├─ script_run         <span class="c-dim">temp bash / python3 scripts</span>
-    ├─ service            <span class="c-dim">registered service actions</span>
-    ├─ upload             <span class="c-dim">file upload (simple + chunked)</span>
-    └─ playbooks          <span class="c-dim">multi-step recipes the LLM can run</span>
+<span class="c-green">sentinelx-cloud-core</span>       <span class="c-dim">← open-source agent on your server</span>
 
 <span class="c-comment"># your servers never expose an inbound port to the internet.</span>
     </div>
@@ -229,22 +219,22 @@
       <div class="step">
         <div class="step-num">01 — INSTALL</div>
         <h3>One command, one minute</h3>
-        <p>Run the installer on your Linux server. It creates a system user, installs the agent under <code>/opt/sentinelx-cloud-core</code>, registers a systemd service, and connects to the hub.</p>
+        <p>Run the installer. It creates a system user, registers a systemd service, and connects out to the hub.</p>
       </div>
       <div class="step">
         <div class="step-num">02 — ENROLL</div>
         <h3>Sign in with Google</h3>
-        <p>Visit <code>mcp.sentinelx.app</code>, sign in with Google, click <em>Enroll a new host</em>, and paste the token the installer asks for. Your server appears in the dashboard within seconds.</p>
+        <p>Sign in at <code>mcp.sentinelx.app</code>, click <em>Enroll a new host</em>, paste the token. Your server appears in seconds.</p>
       </div>
       <div class="step">
         <div class="step-num">03 — DASHBOARD</div>
         <h3>See your fleet</h3>
-        <p>The dashboard lists every enrolled server with a status dot, hostname, agent version, and last-seen time. Label hosts, kick stale sessions, or unenroll — all from the browser.</p>
+        <p>Every host with status, version and last-seen. Label, kick sessions, or unenroll — from the browser.</p>
       </div>
       <div class="step">
         <div class="step-num">04 — USE IT</div>
         <h3>From any AI client</h3>
-        <p>Add <code>mcp.sentinelx.app</code> as an MCP connector in Claude or ChatGPT. The AI sees your hosts, can target them by name, and only runs operations the agent's allowlist permits.</p>
+        <p>Add the hub as an MCP connector in Claude or ChatGPT. The AI targets hosts by name — and only runs what the allowlist permits.</p>
       </div>
     </div>
   </div>
@@ -255,13 +245,13 @@
   <div class="container">
     <div class="section-label">// security model</div>
     <h2>Least privilege, <span class="accent">by design.</span></h2>
-    <p class="section-intro">Every security decision in SentinelX is intentional and explicit. The agent is open source — you can audit exactly what runs on your server.</p>
+    <p class="section-intro">The agent is open source — audit exactly what runs on your server.</p>
     <div class="security-grid">
-      <div class="sec-card"><div class="sec-icon">🔒</div><h3>Command allowlist</h3><p>The agent only runs commands explicitly listed in its policy. Anything not in the allowlist is rejected before execution. Servers, paths and arguments are validated against the policy too.</p></div>
-      <div class="sec-card"><div class="sec-icon">👤</div><h3>Isolated service user</h3><p>The agent runs as a dedicated <code>sentinelx</code> system user with no login shell. Its sudoers rule is scoped to the exact commands the policy permits.</p></div>
-      <div class="sec-card"><div class="sec-icon">🎟</div><h3>OAuth via Google</h3><p>The hub authenticates you via Google sign-in. Each session is a JWT with explicit scopes. The agent only accepts connections from the hub, signed with your account's identity.</p></div>
-      <div class="sec-card"><div class="sec-icon">🔑</div><h3>Outbound only</h3><p>The agent opens an outbound WebSocket to <code>mcp.sentinelx.app</code>. No inbound ports, no public DNS for your host, no certificates to manage. Your firewall stays closed.</p></div>
-      <div class="sec-card"><div class="sec-icon">📋</div><h3>Audit log</h3><p>Every operation is logged on the hub with the user, host, command, output, return code, and timestamp. Blocked operations are logged too.</p></div>
+      <div class="sec-card"><div class="sec-icon">🔒</div><h3>Command allowlist</h3><p>Only commands explicitly listed in the policy run. Paths and arguments are validated too.</p></div>
+      <div class="sec-card"><div class="sec-icon">👤</div><h3>Isolated service user</h3><p>A dedicated <code>sentinelx</code> user, no login shell, sudo scoped to exactly what the policy permits.</p></div>
+      <div class="sec-card"><div class="sec-icon">🎟</div><h3>OAuth via Google</h3><p>Google sign-in, JWT sessions with explicit scopes. The agent only trusts the hub.</p></div>
+      <div class="sec-card"><div class="sec-icon">🔑</div><h3>Outbound only</h3><p>One outbound WebSocket. No inbound ports, no public DNS, no certificates. Your firewall stays closed.</p></div>
+      <div class="sec-card"><div class="sec-icon">📋</div><h3>Audit log</h3><p>Every operation logged: user, host, command, output, return code. Blocked attempts too.</p></div>
       <div class="sec-card"><div class="sec-icon">🧰</div><h3>Open-source agent</h3><p>The agent is Apache 2.0-licensed and lives at <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank" style="color:var(--accent);text-decoration:none;">pensados/sentinelx-cloud-core</a>. Read it, fork it, run a fork — it's yours.</p></div>
     </div>
   </div>
@@ -274,8 +264,7 @@
       <div class="mcp-text">
         <div class="section-label">// AI clients</div>
         <h2>Works with any <span class="accent">MCP client.</span></h2>
-        <p>SentinelX speaks the Model Context Protocol over Streamable HTTP. Connect it to Claude, ChatGPT or any MCP-compatible agent — the same hub URL works for all of them.</p>
-        <p>You sign in once with Google. From there, every AI client you connect sees the same fleet of hosts.</p>
+        <p>One hub URL, any MCP client. Sign in once with Google — every client you connect sees the same fleet.</p>
         <div class="client-list">
           <div class="client-item"><div class="client-dot"></div> Claude (claude.ai, Claude Desktop, Claude Code)</div>
           <div class="client-item"><div class="client-dot"></div> ChatGPT (<a href="https://chatgpt.com/apps/sentinelx/asdk_app_69f63e01766881919640f03b5e7912a5" target="_blank" style="color:var(--accent);text-decoration:none;">in the app directory ↗</a>)</div>
@@ -335,23 +324,23 @@
   <div class="container">
     <div class="section-label">// beyond ops</div>
     <h2>Persistent dev sessions, <span class="accent">with memory.</span></h2>
-    <p class="section-intro">Most AI coding tools start every session from zero — a fresh context, a stale <code>CLAUDE.md</code>, the same decisions explained again. SentinelX runs inside your chat, so the context, the rationale, and the history accumulate across days and weeks. Combine the agent with <code>git</code> on the same host and you get a remote dev environment where the AI actually remembers your project.</p>
+    <p class="section-intro">Most AI coding tools start every session from zero. SentinelX runs inside your chat, so context and decisions accumulate across days. Add <code>git</code> on the host and the AI actually remembers your project.</p>
 
     <div class="steps">
       <div class="step">
         <div class="step-num">01 — REFACTOR OVER DAYS</div>
         <h3>Iterate on a repo across sessions</h3>
-        <p>Clone once, refactor over a week. The assistant remembers what you tried on Monday when you pick it up on Thursday — no scratchpad files to maintain, no re-explaining the constraints.</p>
+        <p>Clone once, refactor over a week. Thursday's session remembers what Monday tried.</p>
       </div>
       <div class="step">
         <div class="step-num">02 — DEBUG WITH HISTORY</div>
         <h3>Bugs that need yesterday's context</h3>
-        <p><em>"Remember the timeout we saw last week? It came back."</em> The chat holds the thread; the agent re-runs the diagnostics on the live host, with the previous findings already in scope.</p>
+        <p><em>"Remember the timeout from last week? It came back."</em> The chat holds the thread; the agent re-runs the diagnostics live.</p>
       </div>
       <div class="step">
         <div class="step-num">03 — DECISIONS THAT STICK</div>
         <h3>Architecture rationale stays decided</h3>
-        <p>Why you picked Postgres over SQLite. Why the worker lives on a separate host. Why that endpoint is async. The reasoning lives in the conversation, not in scattered comments you'll forget to grep for.</p>
+        <p>Why Postgres over SQLite, why the worker is on its own host. The reasoning lives in the conversation, not in comments you'll forget to grep.</p>
       </div>
     </div>
 
@@ -368,11 +357,11 @@
   <div class="container">
     <div class="section-label">// self-hosted alternative</div>
     <h2>Want to run <span class="accent">your own</span> hub?</h2>
-    <p class="section-intro">If you'd rather run the entire stack yourself — including the OAuth provider — there's a Docker edition that bundles agent, MCP bridge, and Keycloak in one stack. Same MCP protocol, same security model, no managed service.</p>
+    <p class="section-intro">Prefer running the whole stack yourself, OAuth included? The Docker edition bundles agent, MCP bridge and Keycloak. Same protocol, same security model.</p>
 
     <div class="alt-card">
       <h3>SentinelX Docker <span class="badge gray">self-hosted</span></h3>
-      <p>One-line install: 4 containers (agent, MCP bridge, Keycloak, Postgres) on your own host. You bring DNS, certificates, and operational responsibility. Recommended if you want full data sovereignty or air-gapped deployments.</p>
+      <p>One-line install, 4 containers on your own host. You bring DNS, certificates and ops. For full data sovereignty or air-gapped setups.</p>
       <div class="install-cmd"><span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/pensados/sentinelx-docker/main/install.sh | bash</div>
       <div class="alt-actions">
         <a class="btn-secondary" href="https://github.com/pensados/sentinelx-docker" target="_blank" style="font-size:0.78rem;padding:0.6rem 1.25rem;">↗ sentinelx-docker</a>
