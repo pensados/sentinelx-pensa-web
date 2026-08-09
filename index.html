@@ -349,6 +349,113 @@
         </div>
       </div>
     </div>
+    <!-- editor & CLI clients: drop-in JSON config -->
+    <style>
+      .cb-wrap { position: relative; }
+      .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; display: inline-flex; align-items: center; gap: 0.35rem; background: var(--bg3); border: 1px solid var(--border); color: var(--fg3); font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.05em; padding: 0.3rem 0.5rem; cursor: pointer; border-radius: 3px; transition: color .15s, border-color .15s; user-select: none; }
+      .copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+      .copy-btn.copied { color: var(--accent); border-color: var(--accent); }
+      .copy-btn svg { width: 12px; height: 12px; }
+    </style>
+    <div style="margin-top:4rem;">
+      <div class="section-label">// editor &amp; CLI clients</div>
+      <h3 style="font-size:1.5rem;margin:0 0 0.75rem;">Drop-in config for <span class="accent">JSON-based clients.</span></h3>
+      <p style="color:var(--fg2);max-width:64ch;line-height:1.7;">Same hub URL, one paste. The only thing that changes per client is the top-level key and how the transport field is spelled &mdash; get that wrong and the client silently falls back to the legacy SSE transport.</p>
+
+      <div class="mcp-split" style="margin-top:2rem;gap:2rem;">
+        <div>
+          <div style="font-family:var(--mono);font-size:0.78rem;margin-bottom:0.6rem;"><strong style="color:var(--fg);">VS Code</strong> <span style="color:var(--fg3);">&middot; ~/.config/Code/User/mcp.json</span></div>
+          <div class="cb-wrap">
+            <button class="copy-btn" onclick="sxCopy(this)" aria-label="Copy config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
+            <div class="code-block" style="font-size:0.72rem;line-height:1.6;white-space:pre;">{
+  <span class="kw">"servers"</span>: {
+    <span class="kw">"sentinelx"</span>: {
+      <span class="kw">"type"</span>: <span class="str">"http"</span>,
+      <span class="kw">"url"</span>: <span class="str">"https://mcp.sentinelx.app/mcp/mcp"</span>
+    }
+  }
+}</div>
+          </div>
+          <div style="font-size:0.74rem;color:var(--fg3);margin-top:0.6rem;line-height:1.6;">Top-level key <code style="color:var(--purple);">servers</code>, transport <code style="color:var(--amber);">"http"</code>.</div>
+        </div>
+
+        <div>
+          <div style="font-family:var(--mono);font-size:0.78rem;margin-bottom:0.6rem;"><strong style="color:var(--fg);">Cline</strong> <span style="color:var(--fg3);">&middot; cline_mcp_settings.json</span></div>
+          <div class="cb-wrap">
+            <button class="copy-btn" onclick="sxCopy(this)" aria-label="Copy config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
+            <div class="code-block" style="font-size:0.72rem;line-height:1.6;white-space:pre;">{
+  <span class="kw">"mcpServers"</span>: {
+    <span class="kw">"sentinelx"</span>: {
+      <span class="kw">"type"</span>: <span class="str">"streamableHttp"</span>,
+      <span class="kw">"url"</span>: <span class="str">"https://mcp.sentinelx.app/mcp/mcp"</span>
+    }
+  }
+}</div>
+          </div>
+          <div style="font-size:0.74rem;color:var(--fg3);margin-top:0.6rem;line-height:1.6;">Transport must be <code style="color:var(--amber);">"streamableHttp"</code> &mdash; camelCase, no hyphen. Omitting it or using <code>"http"</code> throws <span style="color:var(--red);">Invalid schema</span> and falls back to SSE (405).</div>
+        </div>
+      </div>
+
+      <div class="mcp-split" style="margin-top:2rem;gap:2rem;">
+        <div>
+          <div style="font-family:var(--mono);font-size:0.78rem;margin-bottom:0.6rem;"><strong style="color:var(--fg);">Cursor</strong> <span style="color:var(--fg3);">&middot; ~/.cursor/mcp.json</span></div>
+          <div class="cb-wrap">
+            <button class="copy-btn" onclick="sxCopy(this)" aria-label="Copy config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
+            <div class="code-block" style="font-size:0.72rem;line-height:1.6;white-space:pre;">{
+  <span class="kw">"mcpServers"</span>: {
+    <span class="kw">"sentinelx"</span>: {
+      <span class="kw">"url"</span>: <span class="str">"https://mcp.sentinelx.app/mcp/mcp"</span>
+    }
+  }
+}</div>
+          </div>
+          <div style="font-size:0.74rem;color:var(--fg3);margin-top:0.6rem;line-height:1.6;"><code style="color:var(--purple);">url</code> only &mdash; Cursor auto-detects transport and handles OAuth. Heads-up: Cursor caps ~40 active tools and SentinelX exposes 38, so disable tools you don't use or trim other servers.</div>
+        </div>
+
+        <div>
+          <div style="font-family:var(--mono);font-size:0.78rem;margin-bottom:0.6rem;"><strong style="color:var(--fg);">Windsurf</strong> <span style="color:var(--fg3);">&middot; ~/.codeium/windsurf/mcp_config.json</span></div>
+          <div class="cb-wrap">
+            <button class="copy-btn" onclick="sxCopy(this)" aria-label="Copy config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
+            <div class="code-block" style="font-size:0.72rem;line-height:1.6;white-space:pre;">{
+  <span class="kw">"mcpServers"</span>: {
+    <span class="kw">"sentinelx"</span>: {
+      <span class="kw">"serverUrl"</span>: <span class="str">"https://mcp.sentinelx.app/mcp/mcp"</span>
+    }
+  }
+}</div>
+          </div>
+          <div style="font-size:0.74rem;color:var(--fg3);margin-top:0.6rem;line-height:1.6;">Windsurf uses <code style="color:var(--purple);">serverUrl</code>, not <code>url</code>. Quit and reopen Windsurf fully after saving.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;padding:1rem 1.25rem;border:1px solid var(--border);border-left:2px solid var(--amber);background:var(--bg2);font-size:0.78rem;color:var(--fg2);line-height:1.7;">
+        <strong style="color:var(--amber);">Android Studio &mdash; known issue.</strong> Its built-in MCP client has a PKCE bug (the code_verifier doesn't match its own code_challenge), so the OAuth handshake fails on the client side. Nothing to fix server-side &mdash; use VS Code or another client until JetBrains ships a fix.
+      </div>
+
+      <div style="margin-top:1.5rem;font-family:var(--mono);font-size:0.8rem;">
+        <span style="color:var(--fg3);">// one URL for every client</span><br>
+        <span style="color:var(--accent);">https://mcp.sentinelx.app/mcp/mcp</span><span style="color:var(--fg3);"> &mdash; sign in with Google on first connect.</span>
+      </div>
+    </div>
+    <script>
+      function sxCopy(btn){
+        var block = btn.parentElement.querySelector('.code-block');
+        if(!block) return;
+        var text = block.textContent.trim();
+        function feedback(){
+          btn.classList.add('copied');
+          var lbl = btn.querySelector('.copy-label');
+          if(lbl) lbl.textContent = 'Copied';
+          setTimeout(function(){ btn.classList.remove('copied'); if(lbl) lbl.textContent = 'Copy'; }, 1600);
+        }
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(feedback).catch(function(){ sxFallbackCopy(text); feedback(); });
+        } else { sxFallbackCopy(text); feedback(); }
+      }
+      function sxFallbackCopy(text){
+        try { var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); } catch(e){}
+      }
+    </script>
   </div>
 </section>
 
