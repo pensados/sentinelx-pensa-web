@@ -402,10 +402,10 @@
         </div>
       </div>
 
-      <div style="margin-top:2rem;">
+      <div class="mcp-split" style="margin-top:2rem;gap:2rem;">
         <div>
           <div style="font-family:var(--mono);font-size:0.78rem;margin-bottom:0.6rem;"><strong style="color:var(--fg);">Cursor</strong> <span style="color:var(--fg3);">&middot; ~/.cursor/mcp.json</span></div>
-          <div class="cb-wrap" style="max-width:460px;">
+          <div class="cb-wrap">
             <button class="copy-btn" onclick="sxCopy(this)" aria-label="Copy config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
             <div class="code-block" style="font-size:0.72rem;line-height:1.6;white-space:pre;">{
   <span class="kw">"mcpServers"</span>: {
@@ -416,6 +416,20 @@
 }</div>
           </div>
           <div style="font-size:0.74rem;color:var(--fg3);margin-top:0.6rem;line-height:1.6;"><code style="color:var(--purple);">url</code> only &mdash; Cursor auto-detects transport and handles OAuth. Heads-up: Cursor caps ~40 active tools and SentinelX exposes 38, so disable tools you don't use or trim other servers.</div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:0.78rem;margin-bottom:0.6rem;"><strong style="color:var(--fg);">Any MCP client</strong> <span style="color:var(--fg3);">&middot; the common shape</span></div>
+          <div class="cb-wrap">
+            <button class="copy-btn" onclick="sxCopy(this)" aria-label="Copy config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
+            <div class="code-block" style="font-size:0.72rem;line-height:1.6;white-space:pre;">{
+  <span class="kw">"mcpServers"</span>: {
+    <span class="kw">"sentinelx"</span>: {
+      <span class="kw">"url"</span>: <span class="str">"https://mcp.sentinelx.app/mcp/mcp"</span>
+    }
+  }
+}</div>
+          </div>
+          <div style="font-size:0.74rem;color:var(--fg3);margin-top:0.6rem;line-height:1.6;">Most clients use <code style="color:var(--purple);">mcpServers</code> + <code style="color:var(--purple);">url</code>. A few differ &mdash; check your client's docs for the transport key (e.g. <code>type</code> or <code>serverUrl</code>).</div>
         </div>
       </div>
 
