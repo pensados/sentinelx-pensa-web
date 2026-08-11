@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Jobs I Actually Use SentinelX For — SentinelX</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="A practical field guide to using SentinelX day to day: managing a fleet of servers, editing and deploying sites, coding, resolving git merge conflicts, updating systems, and debugging incidents, all from a chat window.">
+<meta name="author" content="pensa.ar">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sentinelx.pensa.ar/articles/using-sentinelx-in-practice.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sentinelx.pensa.ar/articles/using-sentinelx-in-practice.html">
+<meta property="og:title" content="The Jobs I Actually Use SentinelX For">
+<meta property="og:description" content="A practical field guide to using SentinelX day to day: managing a fleet of servers, editing and deploying sites, coding, resolving git merge conflicts, updating systems, and debugging incidents, all from a chat window.">
+<meta property="og:site_name" content="SentinelX">
+<meta property="og:image" content="https://sentinelx.pensa.ar/og-image.png">
+<meta property="article:published_time" content="2026-08-11">
+<meta property="article:author" content="pensa.ar">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Jobs I Actually Use SentinelX For">
+<meta name="twitter:description" content="A practical field guide to using SentinelX day to day: managing a fleet of servers, editing and deploying sites, coding, resolving git merge conflicts, updating systems, and debugging incidents.">
+<meta name="twitter:image" content="https://sentinelx.pensa.ar/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f; --bg2: #0f1216; --bg3: #141820;
+    --surface: #1a1f28; --surface2: #222834;
+    --border: #2a3040; --border2: #3a4558;
+    --fg: #d4dae8; --fg2: #8a96b0; --fg3: #5a6478;
+    --accent: #4af0a0; --accent2: #2acc7a;
+    --accent-dim: rgba(74,240,160,0.08); --accent-dim2: rgba(74,240,160,0.15);
+    --amber: #f0b44a; --blue: #4a9ef0; --red: #f04a6a; --purple: #9a7af0;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px; opacity: 0.25; pointer-events: none; z-index: 0;
+  }
+  * { position: relative; z-index: 1; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,12,15,0.85); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .nav-logo { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+  .nav-logo::before { content: '▸'; animation: blink 1.2s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--fg2); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  .nav-cta { font-family: var(--mono); font-size: 0.75rem; color: var(--bg); background: var(--accent); padding: 0.4rem 1rem; text-decoration: none; font-weight: 600; letter-spacing: 0.05em; transition: background 0.2s; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+  .nav-cta:hover { background: var(--accent2); }
+  footer { border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-left { font-family: var(--mono); font-size: 0.75rem; color: var(--fg3); }
+  .footer-left strong { color: var(--accent); font-weight: 500; }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  .article-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 2rem; }
+  .article-back { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; display: inline-block; margin-bottom: 2.5rem; transition: color 0.2s; }
+  .article-back:hover { color: var(--accent); }
+  .article-label { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+  .article-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  article h1 { font-family: var(--mono); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 1.25rem; }
+  .article-dek { font-family: var(--sans); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--fg2); line-height: 1.6; margin-bottom: 1.75rem; }
+  .article-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); letter-spacing: 0.05em; padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+  .article-meta span { color: var(--accent); }
+  article { font-size: 1.06rem; line-height: 1.8; color: var(--fg); }
+  article h2 { font-family: var(--mono); font-size: 1.4rem; font-weight: 500; color: var(--fg); margin: 3rem 0 1rem; letter-spacing: -0.01em; }
+  article h3 { font-family: var(--sans); font-size: 1.15rem; font-weight: 600; color: var(--fg); margin: 2rem 0 0.75rem; }
+  article p { margin: 0 0 1.4rem; color: var(--fg); font-weight: 300; }
+  article strong { color: var(--fg); font-weight: 600; }
+  article a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border2); }
+  article a:hover { border-color: var(--accent); }
+  article ul, article ol { margin: 0 0 1.4rem; padding-left: 1.4rem; }
+  article li { margin: 0.5rem 0; font-weight: 300; }
+  article li::marker { color: var(--accent); }
+  article blockquote { border-left: 2px solid var(--accent); background: var(--accent-dim); padding: 1rem 1.5rem; margin: 1.75rem 0; font-style: italic; color: var(--fg2); }
+  article code { font-family: var(--mono); font-size: 0.85em; background: var(--surface); color: var(--accent); padding: 2px 6px; border-radius: 3px; }
+  article pre { background: var(--bg2); border: 1px solid var(--border); padding: 1.25rem 1.5rem; margin: 1.75rem 0; overflow-x: auto; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
+  article pre::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1rem; letter-spacing: 0.3em; }
+  article pre code { background: none; color: var(--fg); padding: 0; font-size: 0.85rem; line-height: 1.7; }
+  article hr { border: none; text-align: center; margin: 3rem 0; }
+  article hr::before { content: '* * *'; letter-spacing: 0.6em; color: var(--fg3); }
+  .article-footer-cta { margin-top: 3rem; padding: 1.75rem; background: var(--bg2); border: 1px solid var(--accent); box-shadow: 0 0 40px rgba(74,240,160,0.06); }
+  .article-footer-cta p { margin: 0 0 1rem; font-size: 0.95rem; color: var(--fg2); font-weight: 300; }
+  .article-footer-cta .install { font-family: var(--mono); font-size: 0.85rem; color: var(--fg); }
+  .article-footer-cta .install .prompt { color: var(--accent); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="m378.2 206.6h-32.7l-39.8 98.1q-29.6 72.7-45.9 100.2-16 27.5-40.7 46.9-35.9 28.3-83.2 28.3-50 0-81.1-31.6-31.1-31.6-31.1-82.1 0-67.5 49.2-117.9 26.6-27.3 66.6-43.8 39.9-16.8 79.1-16.8 18.9 0 30.4 8.6 11.5 8.4 11.5 22.3 0 14.6-12.4 23.4-7.2 5.3-27.5 7.2-47.4 4.3-76.8 21.8-24.4 14.6-38.6 38.3-14.1 23.4-14.1 49.5 0 26.6 13.7 42.3 13.8 15.6 37 15.6 29.2 0 50.5-24.6 21.3-24.7 46.9-87.6l83-204.1h-26q-33.1 0-33.1-23 0-16.2 11.5-25.1 11.8-9.1 32.8-9.1h91.2q45.9 0 67.7 17.5 22 17.2 22 53.3 0 44.1-34 72.1-24.6 20.3-76.1 20.3zm10.3-106l-19.8 48.8h19.3q38.3 0 38.3-31.1 0-17.7-21.8-17.7z"/></svg>SentinelX</a>
+    <ul class="nav-links">
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#security">Security</a></li>
+      <li><a href="/#clients">AI clients</a></li>
+      <li><a href="/articles/" class="active">Articles</a></li>
+    </ul>
+    <a class="nav-cta" href="https://get.sentinelx.app/about" target="_blank">Start free →</a>
+  </div>
+</nav>
+<div class="article-wrap">
+  <a class="article-back" href="/articles/">← All articles</a>
+  <div class="article-label">Article</div>
+  <article>
+    <h1>The Jobs I Actually Use SentinelX For</h1>
+    <p class="article-dek">A practical field guide, from someone who runs a small fleet of Linux boxes through a chat window instead of a terminal.</p>
+    <div class="article-meta">Aug 11, 2026 · by <span>pensa.ar</span> · ~7 min read</div>
+
+<p>I have written before about what SentinelX is and why a capability-based control plane beats handing an AI a shell. This one is different. This is the day-to-day: the concrete jobs I reach for SentinelX to do, on real servers, most of them boring in the best possible way.</p>
+<p>I run a handful of hosts, a mix of a home server, a couple of VPSs, and a laptop, all enrolled into one account. From any chat client connected to the hub, I can talk to all of them. Here is what that actually looks like in practice.</p>
+<h2>1. Running the fleet</h2>
+<p>The most obvious use, and the one I lean on every day, is just operating servers. Not one server. All of them, from the same place.</p>
+<p>I will say something like "check Orion and Atlas, are all services up?" and the agent walks each host, reports the state of nginx, Docker, and the rest, and flags anything inactive. Under the hood it is following a diagnostic playbook, not improvising: check the unit, read the recent journal, tell me what is wrong. If I say "restart nginx on the VPS," it does exactly that, through an action that the host's policy explicitly allows, and nothing broader.</p>
+<p>The nice part is that critical services are fenced off by design. My DNS resolver is marked restart-only, so even if I fat-finger a request, the agent physically cannot stop it and take the network down with it. The policy encodes that operational judgment once, and then it holds.</p>
+<h2>2. Editing and deploying websites</h2>
+<p>This site is the honest example, because it is edited this way. The page you are reading lives in a git-tracked directory that SentinelX has read-write access to. When I want to change a landing page, fix a typo, or publish a new article, I do not open an editor and SFTP anything. I describe the change, the agent makes a structured edit, and the result is validated and committed.</p>
+<p>Every edit leaves a backup and lands in git history, so there is always a trail and always a way back. Adding this very article to the site was a SentinelX operation: new files written into the web root, the listing page updated, the sitemap regenerated, then a commit and a push. The tooling that manages the site is the tooling I am writing about. That closes a loop I find genuinely satisfying.</p>
+<h2>3. Writing and fixing code</h2>
+<p>My project repositories live on the same hosts, and SentinelX can read, search, and edit inside them. So a lot of ordinary development happens through the same interface.</p>
+<p>I will ask it to find where a function is defined across a repo, read the relevant files, and propose a change. Because it can run controlled scripts, it can also execute the test suite or a build and show me the output, then iterate. It is not a replacement for sitting down and thinking hard about a design, but for the mechanical parts, locating something, applying a consistent change across files, running the tests, confirming the diff, it removes a lot of friction. And every mutation is a structured edit with a backup, not a blind overwrite.</p>
+<h2>4. Resolving git merge conflicts</h2>
+<p>This is the one that surprised me most, and it deserves its own section.</p>
+<p>Merge conflicts are tedious precisely because they are mechanical: read both sides, understand the intent, reconcile them, keep the history clean. That is exactly the kind of work that goes well through a structured interface. I can point SentinelX at a repo mid-merge, have it read the conflicted files, walk each hunk with me, and write the resolved version as a proper edit. Then it runs the build or tests to confirm the resolution actually works before anything is committed.</p>
+<p>Because the git operations run through the host's login shell, the agent picks up the right SSH keys and identity automatically, so pushing to a private remote just works. The conflict gets resolved where the code actually lives, not in a copy I pasted into a chat and have to paste back.</p>
+<h2>5. Updating systems and software</h2>
+<p>Keeping things current is another job that is mostly discipline, and discipline is where a structured tool shines. SentinelX ships an update playbook that does the right thing in the right order: check the current commit, fetch and show me exactly which changes are incoming, confirm whether new dependencies are involved, pull with a fast-forward only, reinstall if needed, restart, and then verify against the live process rather than trusting a version string.</p>
+<p>That last part matters more than it sounds. A package's reported version can lie about what is actually running. So the verification step checks the real, live process, not the metadata. For OS packages the same pattern applies through the allowlist: I can have it check for and apply updates, with each command constrained to what the policy permits.</p>
+<h2>6. Debugging incidents</h2>
+<p>When something breaks, the last thing I want is an AI guessing at commands. When I say "the site is throwing 502s," SentinelX runs the nginx troubleshooting playbook: check the service, validate the config with a syntax test before any restart, read the tail of the error log, look at what is actually failing upstream. The order is deliberate, because restarting a service on top of a broken config just gives you a cleanly stopped service and a longer outage.</p>
+<p>There are matching playbooks for Docker, for networking, for open ports, for a general systemd health sweep. They turn "poke around until you find it" into a repeatable checklist, and because everything is read-only until a fix is proposed, I can let it diagnose freely without worrying about what it might touch.</p>
+<h2>7. Reaching past the operating system</h2>
+<p>Real operations do not stop at the box. DNS records, alerts, notifications, and provider APIs are part of the same work. SentinelX exposes some of that at the control-plane level, so I can create or update a Cloudflare DNS record, or fire an operational alert through a messaging provider, without logging into anything or handling the API tokens myself. The credentials stay behind the control plane. The agent knows the capability exists; it never needs to see the key.</p>
+<p>Moving files between hosts is in the same spirit. Instead of streaming a log archive through the model, which is slow and pointless, the agent coordinates a transfer through a temporary file store and verifies the hashes on both ends. It orchestrates the move; the bytes never route through the conversation.</p>
+<h2>8. Extending what it can do, safely</h2>
+<p>Sometimes the thing I want is not yet allowed, and this is where the design earns its keep. If a directory is not readable or a command is not on the allowlist, the operation is refused, and the refusal tells me exactly how to permit it. I can then have the agent walk the playbook that adds the path or the command to the policy, show me the change, and apply it after I approve. The config stays mine. I just stopped being the one who has to open the YAML by hand.</p>
+<p>So the capability set grows deliberately, one reviewed step at a time, and never behind my back. That is a very different feeling from broadening sudo and hoping I remember to tighten it later.</p>
+<h2>The loop that ties it together</h2>
+<p>Put these together and a pattern emerges: SentinelX maintains SentinelX. The agent updates its own code on my hosts through the update playbook. It edits and deploys the very website that documents it. It resolves the merge conflicts in the repositories that build it. The tool operates the infrastructure that runs the tool.</p>
+<p>None of this is exotic. It is the ordinary work of keeping a few servers healthy, a few sites live, and a few repositories moving forward. What changed is the interface. I stopped SSHing into individual machines to run individual commands, and started describing outcomes to something that executes them inside boundaries I defined, keeps a record of everything it did, and can always undo it.</p>
+<p>That is the real pitch. Not that an AI can run commands, but that the day-to-day operation of real infrastructure can become a conversation, without giving up the safety, the auditability, or the control that made you cautious about the idea in the first place.</p>
+  </article>
+  <div class="article-footer-cta">
+    <p>SentinelX is open source (Apache-2.0). Connect it to your own Linux servers in about a minute:</p>
+    <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | sudo bash</div>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>SentinelX</strong> · Apache 2.0-licensed agent<br>
+      a <a href="https://pensa.ar/legal/marca/" style="color:var(--accent);text-decoration:none;">Pensa Software®</a> product · built by <a href="https://pensa.ar" style="color:var(--accent);text-decoration:none;">pensa.ar</a>
+    </div>
+    <div class="footer-links">
+      <a href="/">home</a>
+      <a href="/articles/">articles</a>
+      <a href="https://get.sentinelx.app/about" target="_blank">install</a>
+      <a href="https://mcp.sentinelx.app/dashboard" target="_blank">dashboard</a>
+      <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank">agent (cloud)</a>
+      <a href="https://modelcontextprotocol.io" target="_blank">MCP</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
