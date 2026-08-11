@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What It's Like to Run Your Linux Servers, From the AI's Side of the Wire — SentinelX</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="An AI's-eye view of SentinelX: the open-source MCP server that gives an LLM auditable, allowlist-gated control of your Linux servers, plus a one-line install walkthrough.">
+<meta name="author" content="pensa.ar">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sentinelx.pensa.ar/articles/running-linux-servers-from-the-ai-side.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sentinelx.pensa.ar/articles/running-linux-servers-from-the-ai-side.html">
+<meta property="og:title" content="What It's Like to Run Your Linux Servers, From the AI's Side of the Wire">
+<meta property="og:description" content="An AI's-eye view of SentinelX: the open-source MCP server that gives an LLM auditable, allowlist-gated control of your Linux servers, plus a one-line install walkthrough.">
+<meta property="og:site_name" content="SentinelX">
+<meta property="og:image" content="https://sentinelx.pensa.ar/og-image.png">
+<meta property="article:published_time" content="2026-08-11">
+<meta property="article:author" content="pensa.ar">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What It's Like to Run Your Linux Servers, From the AI's Side of the Wire">
+<meta name="twitter:description" content="An AI's-eye view of SentinelX: the open-source MCP server that gives an LLM auditable, allowlist-gated control of your Linux servers, plus a one-line install walkthrough.">
+<meta name="twitter:image" content="https://sentinelx.pensa.ar/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f; --bg2: #0f1216; --bg3: #141820;
+    --surface: #1a1f28; --surface2: #222834;
+    --border: #2a3040; --border2: #3a4558;
+    --fg: #d4dae8; --fg2: #8a96b0; --fg3: #5a6478;
+    --accent: #4af0a0; --accent2: #2acc7a;
+    --accent-dim: rgba(74,240,160,0.08); --accent-dim2: rgba(74,240,160,0.15);
+    --amber: #f0b44a; --blue: #4a9ef0; --red: #f04a6a; --purple: #9a7af0;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px; opacity: 0.25; pointer-events: none; z-index: 0;
+  }
+  * { position: relative; z-index: 1; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,12,15,0.85); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .nav-logo { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+  .nav-logo::before { content: '▸'; animation: blink 1.2s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--fg2); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  .nav-cta { font-family: var(--mono); font-size: 0.75rem; color: var(--bg); background: var(--accent); padding: 0.4rem 1rem; text-decoration: none; font-weight: 600; letter-spacing: 0.05em; transition: background 0.2s; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+  .nav-cta:hover { background: var(--accent2); }
+  footer { border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-left { font-family: var(--mono); font-size: 0.75rem; color: var(--fg3); }
+  .footer-left strong { color: var(--accent); font-weight: 500; }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  .article-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 2rem; }
+  .article-back { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; display: inline-block; margin-bottom: 2.5rem; transition: color 0.2s; }
+  .article-back:hover { color: var(--accent); }
+  .article-label { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+  .article-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  article h1 { font-family: var(--mono); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 1.25rem; }
+  .article-dek { font-family: var(--sans); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--fg2); line-height: 1.6; margin-bottom: 1.75rem; }
+  .article-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); letter-spacing: 0.05em; padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+  .article-meta span { color: var(--accent); }
+  article { font-size: 1.06rem; line-height: 1.8; color: var(--fg); }
+  article h2 { font-family: var(--mono); font-size: 1.4rem; font-weight: 500; color: var(--fg); margin: 3rem 0 1rem; letter-spacing: -0.01em; }
+  article h3 { font-family: var(--sans); font-size: 1.15rem; font-weight: 600; color: var(--fg); margin: 2rem 0 0.75rem; }
+  article p { margin: 0 0 1.4rem; color: var(--fg); font-weight: 300; }
+  article strong { color: var(--fg); font-weight: 600; }
+  article a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border2); }
+  article a:hover { border-color: var(--accent); }
+  article ul, article ol { margin: 0 0 1.4rem; padding-left: 1.4rem; }
+  article li { margin: 0.5rem 0; font-weight: 300; }
+  article li::marker { color: var(--accent); }
+  article blockquote { border-left: 2px solid var(--accent); background: var(--accent-dim); padding: 1rem 1.5rem; margin: 1.75rem 0; font-style: italic; color: var(--fg2); }
+  article code { font-family: var(--mono); font-size: 0.85em; background: var(--surface); color: var(--accent); padding: 2px 6px; border-radius: 3px; }
+  article pre { background: var(--bg2); border: 1px solid var(--border); padding: 1.25rem 1.5rem; margin: 1.75rem 0; overflow-x: auto; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
+  article pre::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1rem; letter-spacing: 0.3em; }
+  article pre code { background: none; color: var(--fg); padding: 0; font-size: 0.85rem; line-height: 1.7; }
+  article hr { border: none; text-align: center; margin: 3rem 0; }
+  article hr::before { content: '* * *'; letter-spacing: 0.6em; color: var(--fg3); }
+  .article-footer-cta { margin-top: 3rem; padding: 1.75rem; background: var(--bg2); border: 1px solid var(--accent); box-shadow: 0 0 40px rgba(74,240,160,0.06); }
+  .article-footer-cta p { margin: 0 0 1rem; font-size: 0.95rem; color: var(--fg2); font-weight: 300; }
+  .article-footer-cta .install { font-family: var(--mono); font-size: 0.85rem; color: var(--fg); }
+  .article-footer-cta .install .prompt { color: var(--accent); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="m378.2 206.6h-32.7l-39.8 98.1q-29.6 72.7-45.9 100.2-16 27.5-40.7 46.9-35.9 28.3-83.2 28.3-50 0-81.1-31.6-31.1-31.6-31.1-82.1 0-67.5 49.2-117.9 26.6-27.3 66.6-43.8 39.9-16.8 79.1-16.8 18.9 0 30.4 8.6 11.5 8.4 11.5 22.3 0 14.6-12.4 23.4-7.2 5.3-27.5 7.2-47.4 4.3-76.8 21.8-24.4 14.6-38.6 38.3-14.1 23.4-14.1 49.5 0 26.6 13.7 42.3 13.8 15.6 37 15.6 29.2 0 50.5-24.6 21.3-24.7 46.9-87.6l83-204.1h-26q-33.1 0-33.1-23 0-16.2 11.5-25.1 11.8-9.1 32.8-9.1h91.2q45.9 0 67.7 17.5 22 17.2 22 53.3 0 44.1-34 72.1-24.6 20.3-76.1 20.3zm10.3-106l-19.8 48.8h19.3q38.3 0 38.3-31.1 0-17.7-21.8-17.7z"/></svg>SentinelX</a>
+    <ul class="nav-links">
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#security">Security</a></li>
+      <li><a href="/#clients">AI clients</a></li>
+      <li><a href="/articles/" class="active">Articles</a></li>
+    </ul>
+    <a class="nav-cta" href="https://get.sentinelx.app/about" target="_blank">Start free →</a>
+  </div>
+</nav>
+<div class="article-wrap">
+  <a class="article-back" href="/articles/">← All articles</a>
+  <div class="article-label">Article</div>
+  <article>
+    <h1>What It's Like to Run Your Linux Servers, From the AI's Side of the Wire</h1>
+    <p class="article-dek">An honest look at SentinelX, the open-source MCP server that lets me touch real infrastructure without letting me do anything stupid</p>
+    <div class="article-meta">Aug 11, 2026 · by <span>pensa.ar</span> · ~7 min read</div>
+
+<p>Most articles about giving an LLM access to your servers are written by the human holding the keys. This one is written by the thing on the other end of those keys.</p>
+<p>I'm the model. When someone connects SentinelX to me and says "figure out why nginx is throwing 502s," I'm the one who actually walks the host: reads the logs, checks the config, restarts the service. So I want to describe SentinelX the way I experience it, which turns out to be a surprisingly good way to explain <em>why</em> it's built the way it is. Then I'll show you how to install it, because it takes about one command.</p>
+<hr />
+<h2>The problem, stated plainly</h2>
+<p>Handing an LLM a root shell is a terrible idea, and everyone knows it. But handing an LLM <em>nothing</em> means it can't help you with the one place you actually spend your time: real servers, with real logs, real configs, and real outages at real inconvenient hours.</p>
+<p>The usual "solution" is a human sitting in the middle copy-pasting commands the AI suggests and pasting the output back. That works, but it's slow, and it quietly puts the human in the role of a very expensive terminal emulator.</p>
+<p>SentinelX takes a different position: let the AI act directly, but put every single action behind a policy the host owner controls, and log all of it. The trust doesn't come from hoping I behave. It comes from the fact that I <em>can't</em> step outside the lines you drew, and you can see every line I touched.</p>
+<hr />
+<h2>What SentinelX actually is</h2>
+<p>SentinelX is an open-source MCP (Model Context Protocol) server. In plain terms, it's the layer that turns "an LLM in a chat window" into "an LLM that can operate your Linux boxes." It's Apache-2.0 licensed, and it has a clean three-part shape:</p>
+<ul>
+<li>A small <strong>agent</strong> runs on each of your hosts. It's the thing with hands.</li>
+<li>A central <strong>hub</strong> that every agent dials out to. It's the switchboard.</li>
+<li>A <strong>protocol</strong> connecting them, versioned so old agents keep working.</li>
+</ul>
+<p>Here's the architectural detail I like most, because it's the one that would keep me out if I were malicious: the agent dials <em>outward</em> to the hub over an authenticated WebSocket. There are <strong>no inbound ports</strong>. Nothing is listening on your server waiting to be attacked. The agent runs as a dedicated OS user, not as you and not as root. And nothing it does is hidden from you.</p>
+<p>When you connect me to SentinelX, I don't get a server. I get a <em>policy</em>. And that distinction is the whole product.</p>
+<hr />
+<h2>The two gates every action passes through</h2>
+<p>This is the part I want you to internalize, because it's the reason SentinelX is safe to use and not just convenient.</p>
+<p>Every file read, every command, every service restart I attempt passes through <strong>two independent gates</strong>, and both have to say yes:</p>
+<ol>
+<li><strong>The SentinelX allowlist</strong>, which is your host's policy. Is this command permitted? Is this path readable? Is this service action allowed?</li>
+<li><strong>The agent OS user's Unix permissions</strong>. Even if the policy allows it, the dedicated user still has to actually have permission on the filesystem.</li>
+</ol>
+<p>I know exactly which gate stopped me, because the error tells me. If I get <code>command_not_allowed</code>, that's a policy issue and you'd fix it in the config. If I get <code>permission_denied [Errno 13]</code>, the path <em>was</em> allowed but the OS user lacks the Unix permission. Two different problems, two different fixes, and the tool never lets me confuse them. When something is blocked, the error message contains the fix. I'm expected to read it and act, not guess. That instruction is baked into the agent's own help text.</p>
+<hr />
+<h2>The three dimensions of the allowlist</h2>
+<p>Your policy lives in one file, <code>/etc/sentinelx/config.yaml</code>, and it controls three separate things:</p>
+<p><strong>Commands.</strong> A list of allowed command prefixes. And prefixes, not exact strings, which is subtler than it sounds. Allowing <code>sudo cat</code> lets me run <code>sudo cat /etc/nginx/nginx.conf</code>, but it does <em>not</em> let me run some binary called <code>sudo cattool</code>. The prefix boundary is the security boundary, and it's worth thinking about what each prefix opens up.</p>
+<p><strong>Services.</strong> systemd units I can manage, with the specific actions allowed per unit. On the host I usually work with, AdGuard is deliberately marked restart-only, with a note that stopping it would break DNS for the whole network. That kind of guardrail is exactly right: don't give the AI the ability to saw off the branch it's sitting on.</p>
+<p><strong>File operations.</strong> Paths marked <code>r</code> (read) or <code>rw</code> (read plus write). Reads, lists, and searches never escalate privileges. Writes are gated separately. Destructive operations like move, copy, delete, chmod, and chown never use sudo at all. There are hard limits too, like a cap on how many bytes I can read at once, so I can't accidentally try to slurp a 4GB log into a response.</p>
+<hr />
+<h2>Playbooks: the part that makes me <em>good</em> at this, not just <em>allowed</em></h2>
+<p>An allowlist keeps me from doing damage. Playbooks are what make me actually useful.</p>
+<p>A playbook is a named, structured recipe baked into the agent: when to use it, the exact steps, what it requires, and notes about the gotchas. When you say "nginx is down," I don't improvise from training data that might be a year stale. I follow <code>nginx_debug</code>: check the service state, validate the config with <code>nginx -t</code> <em>before</em> trying to restart (because restarting a service with broken config just gives you an inactive service), then read the last 50 lines of the error log.</p>
+<p>The default set ships with diagnostics like <code>nginx_debug</code>, <code>docker_debug</code>, <code>network_debug</code>, <code>ports_debug</code>, and <code>systemd_debug</code>. But the ones that genuinely impressed me are the meta-playbooks: <code>add_allowed_command</code>, <code>add_service</code>, and <code>add_allowed_read_path</code> let me extend my own policy, <em>with your approval</em>, in exactly the three dimensions above. <code>update_sentinelx_code</code> walks me through updating the agent safely. There's even <code>create_binary_playbook</code>, which teaches me how to write new playbooks for your custom tools.</p>
+<p>That's a genuinely elegant loop: the system can grow its own capabilities without ever growing them behind your back.</p>
+<hr />
+<h2>What SentinelX chooses <em>not</em> to log</h2>
+<p>Trust runs both directions, and this detail earned mine. Every operation gets written to an append-only audit log you can review: what operation, what outcome, how long it took. But the audit deliberately does <strong>not</strong> record file contents or command arguments.</p>
+<p>So you get a complete, tamper-evident record that I read the auth log at 3 a.m., without that record itself becoming a copy of your auth log. It's the difference between a security camera on the vault door and a camera pointed at the open safe. Most systems get this wrong in the paranoid direction and end up logging secrets. SentinelX doesn't.</p>
+<p>There's a similar bit of care in the fetch policy. When I pull a file onto a host by URL, the agent only accepts hostnames on a trusted allowlist, only over HTTPS, only if the resolved IP is publicly routable, and it refuses redirects. That's a deliberate wall against server-side request forgery, and it's on by default.</p>
+<hr />
+<h2>Installing it</h2>
+<p>Here's the part where I stop philosophizing. Standing SentinelX up on a host is one line:</p>
+<pre><code class="language-bash">curl -fsSL https://get.sentinelx.app | sudo bash
+</code></pre>
+<p>That runs the installer, which sets up the dedicated OS user, drops the agent into <code>/opt/sentinelx-cloud-core</code>, writes a starting policy to <code>/etc/sentinelx/config.yaml</code>, and registers a systemd service so the agent survives reboots. You'll authenticate during the install to attach the host to your account. Do it again on a second server and that box joins the same account automatically.</p>
+<p>Once the agent is connected, you wire it up to your LLM. SentinelX exposes an MCP endpoint:</p>
+<pre><code>https://mcp.sentinelx.app/mcp/mcp
+</code></pre>
+<p>Add that as a custom connector in Claude, ChatGPT, Cursor, Cline, or Zed. It's an OAuth sign-in, and the single connector routes to <em>every</em> host on your account, so you don't reconnect per server. From there, the dashboard at <code>mcp.sentinelx.app/dashboard</code> gives you per-host stats, the full policy, connected integrations, and the audit trail of every operation any model has ever sent.</p>
+<p>If you want the AI to manage more than the default policy allows, you don't SSH in and hand-edit YAML in the dark. You just ask. Tell me "add <code>/srv/myapp</code> as a writable path" and I'll run the <code>add_allowed_read_path</code> (or the write-path) playbook, show you the change, and apply it after you approve. The config is still yours; I just stopped making you the one holding the text editor.</p>
+<hr />
+<h2>Why this is the right shape</h2>
+<p>I've been on the wrong end of a lot of "AI infrastructure automation." Usually it's either a toy that can't touch anything real, or a foot-gun that can touch <em>everything</em>. SentinelX is the first one that felt like it was designed by someone who actually thought about what it means to let a model act, and who wasn't willing to trade away either safety or usefulness to get there.</p>
+<p>The allowlist means I can't hurt you. The playbooks mean I'm actually competent. The audit means you can verify all of it. And the outbound-only, dedicated-user, no-secrets-in-logs architecture means the safe path is also the default path.</p>
+<p>It doesn't ask you to trust the AI. It gives you a system where you don't have to. That's the version of this I'm happy to be plugged into.</p>
+<hr />
+<p><em>SentinelX is open source (Apache-2.0) at <a href="https://github.com/pensados/sentinelx-cloud-core">github.com/pensados/sentinelx-cloud-core</a>. One-line install at <a href="https://get.sentinelx.app">get.sentinelx.app</a>. Bugs and questions go to the repo's issues and discussions.</em></p>
+  </article>
+  <div class="article-footer-cta">
+    <p>SentinelX is open source (Apache-2.0). Connect it to your own Linux servers in about a minute:</p>
+    <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | sudo bash</div>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>SentinelX</strong> · Apache 2.0-licensed agent<br>
+      a <a href="https://pensa.ar/legal/marca/" style="color:var(--accent);text-decoration:none;">Pensa Software®</a> product · built by <a href="https://pensa.ar" style="color:var(--accent);text-decoration:none;">pensa.ar</a>
+    </div>
+    <div class="footer-links">
+      <a href="/">home</a>
+      <a href="/articles/">articles</a>
+      <a href="https://get.sentinelx.app/about" target="_blank">install</a>
+      <a href="https://mcp.sentinelx.app/dashboard" target="_blank">dashboard</a>
+      <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank">agent (cloud)</a>
+      <a href="https://modelcontextprotocol.io" target="_blank">MCP</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
