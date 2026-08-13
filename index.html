@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SentinelX — AI agent for your Linux servers</title>
+<title>SentinelX — AI agent for your Linux, macOS and Windows servers</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-<meta name="description" content="Connect AI to your Linux servers via MCP. One-line install, OAuth via Google, multi-host dashboard. Open-source agent, Apache 2.0 license.">
+<meta name="description" content="Connect AI to your Linux, macOS and Windows servers via MCP. One-line install, OAuth via Google, multi-host dashboard. Open-source agent, Apache 2.0 license.">
 <meta name="keywords" content="sentinelx, MCP server, model context protocol, server agent, Claude MCP, ChatGPT MCP, AI ops, server automation, open source, OAuth">
 <meta name="author" content="pensa.ar">
 <meta name="robots" content="index, follow">
@@ -17,20 +17,20 @@
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sentinelx.pensa.ar/">
-<meta property="og:title" content="SentinelX — AI agent for your Linux servers">
-<meta property="og:description" content="Connect Claude and ChatGPT to your Linux servers in 60 seconds. One-line install, OAuth via Google, multi-host dashboard.">
+<meta property="og:title" content="SentinelX — AI agent for your Linux, macOS and Windows servers">
+<meta property="og:description" content="Connect Claude and ChatGPT to your Linux, macOS and Windows servers in 60 seconds. One-line install, OAuth via Google, multi-host dashboard.">
 <meta property="og:site_name" content="SentinelX">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://sentinelx.pensa.ar/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SentinelX — operate your Linux servers from Claude.ai or ChatGPT">
+<meta property="og:image:alt" content="SentinelX — operate your Linux, macOS and Windows servers from Claude.ai or ChatGPT">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SentinelX — AI agent for your Linux servers">
-<meta name="twitter:description" content="Connect Claude and ChatGPT to your Linux servers in 60 seconds. One-line install, OAuth via Google.">
+<meta name="twitter:title" content="SentinelX — AI agent for your Linux, macOS and Windows servers">
+<meta name="twitter:description" content="Connect Claude and ChatGPT to your Linux, macOS and Windows servers in 60 seconds. One-line install, OAuth via Google.">
 <meta name="twitter:image" content="https://sentinelx.pensa.ar/og-image.png">
-<meta name="twitter:image:alt" content="SentinelX — operate your Linux servers from Claude.ai or ChatGPT">
+<meta name="twitter:image:alt" content="SentinelX — operate your Linux, macOS and Windows servers from Claude.ai or ChatGPT">
 
 <script type="application/ld+json">
 {
@@ -40,9 +40,9 @@
   "alternateName": "SentinelX MCP",
   "url": "https://sentinelx.pensa.ar/",
   "isAccessibleForFree": true,
-  "description": "Managed MCP service that lets Claude, ChatGPT and other AI tools manage your Linux servers via the Model Context Protocol. One-line install, OAuth via Google, multi-host dashboard. Open-source agent.",
+  "description": "Managed MCP service that lets Claude, ChatGPT and other AI tools manage your Linux, macOS and Windows servers via the Model Context Protocol. One-line install, OAuth via Google, multi-host dashboard. Open-source agent.",
   "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Linux",
+  "operatingSystem": "Linux, macOS, Windows",
   "license": "https://opensource.org/licenses/Apache-2.0",
   "codeRepository": "https://github.com/pensados/sentinelx-cloud-core",
   "author": { "@type": "Organization", "name": "pensa.ar", "url": "https://pensa.ar" },
@@ -212,7 +212,7 @@
 <div class="hero">
   <div class="hero-tag">managed cloud · open-source agent · Apache 2.0</div>
   <h1>Connect AI to<br><span class="hi">your servers.</span></h1>
-  <p class="hero-sub">SentinelX connects Claude, ChatGPT and any MCP client to your Linux servers. One command per host, Google sign-in, your whole fleet in one dashboard.</p>
+  <p class="hero-sub">SentinelX connects Claude, ChatGPT and any MCP client to your Linux, macOS and Windows servers. One command per host, Google sign-in, your whole fleet in one dashboard.</p>
   <div class="hero-ctas">
     <a class="btn-primary" href="https://get.sentinelx.app/about" target="_blank">↓ Start free</a>
     <a class="btn-secondary" href="https://mcp.sentinelx.app/dashboard" target="_blank">↗ See dashboard</a>
@@ -220,8 +220,11 @@
   </div>
 
   <div class="install-hero">
-<span class="comment"># one-line install on your Linux server</span>
-<span class="prompt">$</span> <span class="cmd">curl -fsSL https://get.sentinelx.app | sudo bash</span>
+<span class="comment"># one-line install on Linux or macOS</span>
+<span class="prompt">$</span> <span class="cmd">curl -fsSL https://get.sentinelx.app | bash</span>
+
+<span class="comment"># on Windows (PowerShell) — add -User for a no-admin install</span>
+<span class="prompt">PS&gt;</span> <span class="cmd">iwr -useb https://get.sentinelx.app/install.ps1 -OutFile "$env:TEMP\sx.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\sx.ps1"</span>
 
 <span class="comment"># then enroll it: mcp.sentinelx.app → "+ Enroll a new host" → paste token. Done.</span>
   </div>
