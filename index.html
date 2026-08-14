@@ -183,6 +183,11 @@
   .spec-key { color: var(--purple); min-width: 84px; flex-shrink: 0; }
   .spec-val { color: var(--fg); }
   .spec-foot { font-family: var(--mono); font-size: 0.75rem; color: var(--fg3); margin-top: 0.9rem; font-style: italic; }
+  .shot-frame { max-width: 620px; margin: 2.5rem auto 0; border: 1px solid var(--border); background: var(--bg2); box-shadow: 0 0 45px rgba(94,234,212,0.07); border-radius: 8px; overflow: hidden; }
+  .shot-bar { display: flex; gap: 7px; padding: 11px 15px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  .shot-bar span { width: 11px; height: 11px; border-radius: 50%; background: var(--fg3); opacity: 0.55; }
+  .shot-frame img { display: block; width: 100%; height: auto; }
+  .shot-cap { text-align: center; font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); margin-top: 1rem; letter-spacing: 0.03em; }
 
   .mcp-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
   @media (max-width: 700px) { .mcp-split { grid-template-columns: 1fr; } }
@@ -345,6 +350,20 @@
       </div>
     </div>
     </div>
+  </div>
+</section>
+
+<!-- IN PRACTICE -->
+<section id="demo">
+  <div class="container">
+    <div class="section-label">// in practice</div>
+    <h2>Ask in plain language. <span class="accent">Watch it work.</span></h2>
+    <p class="section-intro">A real session: SentinelX checks the allowlist first, runs only what's permitted (<code>df -h</code>, <code>/proc/meminfo</code>), and reports back &mdash; no shell handed over, no guessing.</p>
+    <div class="shot-frame">
+      <div class="shot-bar"><span></span><span></span><span></span></div>
+      <img src="/sentinelx-ram.png" alt="SentinelX checking a server's RAM and storage from a chat, via ChatGPT" loading="lazy">
+    </div>
+    <p class="shot-cap">SentinelX in ChatGPT &mdash; checking RAM &amp; storage, live.</p>
   </div>
 </section>
 
