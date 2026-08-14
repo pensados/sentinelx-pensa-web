@@ -137,13 +137,19 @@
   .install-hero .enroll-line { margin-top: 1.4rem; padding-top: 1.1rem; border-top: 1px solid var(--border); color: var(--fg2); font-size: 0.76rem; line-height: 1.7; }
   .install-hero .enroll-line a { color: var(--accent); text-decoration: none; }
   .install-hero .enroll-line a:hover { text-decoration: underline; }
-  .arch-block { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; font-family: var(--mono); font-size: 0.8rem; color: var(--fg2); line-height: 1.9; max-width: 720px; margin-bottom: 5rem; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
-  .arch-block::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1.25rem; letter-spacing: 0.3em; }
-  .arch-block .c-green{color:var(--accent)} .arch-block .c-amber{color:var(--amber)} .arch-block .c-blue{color:var(--blue)} .arch-block .c-dim{color:var(--fg3)} .arch-block .c-comment{color:var(--fg3);font-style:italic}
-  .stat-strip { display: flex; gap: 0; border: 1px solid var(--border); margin-bottom: 5rem; background: var(--border); gap: 1px; flex-wrap: wrap; }
-  .stat { background: var(--bg2); padding: 1.5rem 2.5rem; flex: 1; min-width: 160px; }
-  .stat-val { font-family: var(--mono); font-size: 1.8rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
-  .stat-label { font-size: 0.75rem; color: var(--fg3); font-weight: 300; letter-spacing: 0.05em; }
+  .arch-flow { max-width: 460px; margin: 0 auto 5rem; font-family: var(--mono); }
+  .arch-node { border: 1px solid var(--border); background: var(--bg2); border-radius: 6px; padding: 0.9rem 1.25rem; text-align: center; }
+  .arch-node-title { font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; }
+  .arch-node-sub { font-size: 0.72rem; color: var(--fg3); margin-top: 0.25rem; }
+  .arch-clients .arch-node-title { color: var(--blue); }
+  .arch-hub { border-color: rgba(240,180,74,0.5); }
+  .arch-hub .arch-node-title { color: var(--amber); }
+  .arch-agent { border-color: var(--accent); box-shadow: 0 0 30px rgba(74,240,160,0.06); }
+  .arch-agent .arch-node-title { color: var(--accent); }
+  .arch-conn { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; padding: 0.55rem 0; }
+  .arch-arrow { color: var(--fg3); font-size: 1.1rem; line-height: 1; }
+  .arch-conn-label { font-size: 0.68rem; color: var(--fg3); letter-spacing: 0.02em; }
+  .arch-note { max-width: 460px; margin: 1.5rem auto 5rem; text-align: center; font-size: 0.72rem; color: var(--fg3); font-style: italic; font-family: var(--mono); }
   section { padding: 5rem 0; border-top: 1px solid var(--border); }
   .section-label { font-family: var(--mono); font-size: 0.7rem; color: var(--fg3); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
   h2 { font-family: var(--mono); font-size: 1.6rem; font-weight: 500; color: var(--fg); margin-bottom: 1rem; letter-spacing: -0.01em; }
@@ -155,6 +161,11 @@
   .step-num { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; }
   .step h3 { font-family: var(--mono); font-size: 0.95rem; font-weight: 500; color: var(--fg); margin-bottom: 0.5rem; }
   .step p { font-size: 0.875rem; color: var(--fg2); font-weight: 300; line-height: 1.6; }
+  .steps-vert { grid-template-columns: 1fr; }
+  .how-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  .how-diagram .arch-flow { max-width: 100%; margin: 0; }
+  .how-diagram .arch-note { max-width: 100%; margin: 1.1rem 0 0; }
+  @media (max-width: 900px) { .how-split { grid-template-columns: 1fr; gap: 2rem; } }
   .security-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; margin-top: 2rem; }
   .sec-card { border: 1px solid var(--border); padding: 1.5rem; background: var(--bg2); }
   .sec-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
@@ -162,6 +173,16 @@
   .sec-card p { font-size: 0.82rem; color: var(--fg2); font-weight: 300; line-height: 1.6; }
   .code-block { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 2rem; font-family: var(--mono); font-size: 0.8rem; line-height: 1.8; color: var(--fg2); overflow-x: auto; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
   .code-block .prompt{color:var(--accent);user-select:none} .code-block .cmd{color:var(--fg)} .code-block .comment{color:var(--fg3);font-style:italic} .code-block .str{color:var(--amber)} .code-block .kw{color:var(--purple)}
+  .spec-block { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 1.75rem; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
+  .spec-label { font-family: var(--mono); font-size: 0.7rem; color: var(--fg3); letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .tool-list, .spec-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .tool-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.6rem; font-family: var(--mono); font-size: 0.78rem; line-height: 1.5; }
+  .tool-name { color: var(--accent); background: none; padding: 0; min-width: 168px; white-space: nowrap; }
+  .tool-desc { color: var(--fg3); }
+  .spec-row { display: flex; align-items: baseline; gap: 0.85rem; font-family: var(--mono); font-size: 0.8rem; line-height: 1.6; }
+  .spec-key { color: var(--purple); min-width: 84px; flex-shrink: 0; }
+  .spec-val { color: var(--fg); }
+  .spec-foot { font-family: var(--mono); font-size: 0.75rem; color: var(--fg3); margin-top: 0.9rem; font-style: italic; }
 
   .mcp-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
   @media (max-width: 700px) { .mcp-split { grid-template-columns: 1fr; } }
@@ -257,12 +278,6 @@
     <div class="enroll-line">Then enroll: <a href="https://mcp.sentinelx.app/dashboard" target="_blank">mcp.sentinelx.app</a> &rarr; "+ Enroll a new host" &rarr; paste token. Done.</div>
   </div>
 
-  <div class="stat-strip">
-    <div class="stat"><div class="stat-val">60s</div><div class="stat-label">to install</div></div>
-    <div class="stat"><div class="stat-val">multi</div><div class="stat-label">host fleet</div></div>
-    <div class="stat"><div class="stat-val">OAuth</div><div class="stat-label">via Google</div></div>
-    <div class="stat"><div class="stat-val">Apache</div><div class="stat-label">open agent</div></div>
-  </div>
 
   <div class="availon">
     <span class="availon-label">// available on</span>
@@ -286,23 +301,28 @@
     <h2>An <span class="accent">agent</span> on each host. A <span class="accent">hub</span> that handles the rest.</h2>
     <p class="section-intro">The hub handles OAuth, identity and MCP. The agent only connects outbound — no inbound ports, no DNS, no certificates on your host.</p>
 
-    <div class="arch-block">
-<span class="c-comment"># architecture (cloud-managed)</span>
-
-<span class="c-blue">Claude</span> / <span class="c-blue">ChatGPT</span> / <span class="c-blue">Cursor</span>
-    │
-    │  HTTPS + OAuth (Google sign-in)
-    ▼
-<span class="c-amber">mcp.sentinelx.app</span>          <span class="c-dim">← managed hub: OAuth, MCP, dashboard</span>
-    │
-    │  WebSocket (outbound from agent)
-    ▼
-<span class="c-green">sentinelx-cloud-core</span>       <span class="c-dim">← open-source agent on your server</span>
-
-<span class="c-comment"># your servers never expose an inbound port to the internet.</span>
+    <div class="how-split">
+      <div class="how-diagram">
+        <div class="arch-flow">
+      <div class="arch-node arch-clients">
+        <div class="arch-node-title">Claude &middot; ChatGPT &middot; Cursor</div>
+        <div class="arch-node-sub">any MCP client</div>
+      </div>
+      <div class="arch-conn"><span class="arch-arrow">&darr;</span><span class="arch-conn-label">HTTPS + OAuth &middot; Google sign-in</span></div>
+      <div class="arch-node arch-hub">
+        <div class="arch-node-title">mcp.sentinelx.app</div>
+        <div class="arch-node-sub">managed hub &mdash; OAuth, MCP, dashboard</div>
+      </div>
+      <div class="arch-conn"><span class="arch-arrow">&darr;</span><span class="arch-conn-label">WebSocket &middot; outbound from the agent</span></div>
+      <div class="arch-node arch-agent">
+        <div class="arch-node-title">sentinelx-cloud-core</div>
+        <div class="arch-node-sub">open-source agent on your server</div>
+      </div>
     </div>
+    <div class="arch-note">Your servers never expose an inbound port to the internet.</div>
+      </div>
 
-    <div class="steps">
+    <div class="steps steps-vert">
       <div class="step">
         <div class="step-num">01 — INSTALL</div>
         <h3>One command, one minute</h3>
@@ -324,22 +344,6 @@
         <p>Add the hub as an MCP connector in Claude or ChatGPT. The AI targets hosts by name — and only runs what the allowlist permits.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- SECURITY -->
-<section id="security">
-  <div class="container">
-    <div class="section-label">// security model</div>
-    <h2>Least privilege, <span class="accent">by design.</span></h2>
-    <p class="section-intro">The agent is open source — audit exactly what runs on your server.</p>
-    <div class="security-grid">
-      <div class="sec-card"><div class="sec-icon">🔒</div><h3>Command allowlist</h3><p>Only commands explicitly listed in the policy run. Paths and arguments are validated too.</p></div>
-      <div class="sec-card"><div class="sec-icon">👤</div><h3>Isolated service user</h3><p>A dedicated <code>sentinelx</code> user, no login shell, sudo scoped to exactly what the policy permits.</p></div>
-      <div class="sec-card"><div class="sec-icon">🎟</div><h3>OAuth via Google</h3><p>Google sign-in, JWT sessions with explicit scopes. The agent only trusts the hub.</p></div>
-      <div class="sec-card"><div class="sec-icon">🔑</div><h3>Outbound only</h3><p>One outbound WebSocket. No inbound ports, no public DNS, no certificates. Your firewall stays closed.</p></div>
-      <div class="sec-card"><div class="sec-icon">📋</div><h3>Audit log</h3><p>Every operation logged: user, host, command, output, return code. Blocked attempts too.</p></div>
-      <div class="sec-card"><div class="sec-icon">🧰</div><h3>Open-source agent</h3><p>The agent is Apache 2.0-licensed and lives at <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank" style="color:var(--accent);text-decoration:none;">pensados/sentinelx-cloud-core</a>. Read it, fork it, run a fork — it's yours.</p></div>
     </div>
   </div>
 </section>
@@ -379,33 +383,91 @@
         </div>
       </div>
       <div>
-        <div class="code-block" style="font-size:0.75rem;line-height:1.9;">
-<span class="comment"># tools the AI sees, per host</span>
-
-<span class="kw">sentinel_state</span>           <span class="comment"># host facts</span>
-<span class="kw">sentinel_capabilities</span>    <span class="comment"># what's allowed</span>
-<span class="kw">sentinel_exec</span>            <span class="comment"># run an allowlisted command</span>
-<span class="kw">sentinel_edit</span>            <span class="comment"># structured file edits</span>
-<span class="kw">sentinel_script_run</span>      <span class="comment"># temp bash / python script</span>
-<span class="kw">sentinel_service</span>         <span class="comment"># start/stop/restart/reload</span>
-<span class="kw">sentinel_upload_file</span>     <span class="comment"># upload to host</span>
-<span class="kw">sentinel_list_hosts</span>      <span class="comment"># multi-host fleet view</span>
-<span class="c-dim">...and more — see the agent's docs</span>
+        <div class="spec-block">
+          <div class="spec-label">// tools the AI sees, per host</div>
+          <div class="tool-list">
+            <div class="tool-row"><code class="tool-name">sentinel_state</code> <span class="tool-desc">host facts</span></div>
+            <div class="tool-row"><code class="tool-name">sentinel_capabilities</code> <span class="tool-desc">what's allowed</span></div>
+            <div class="tool-row"><code class="tool-name">sentinel_exec</code> <span class="tool-desc">run an allowlisted command</span></div>
+            <div class="tool-row"><code class="tool-name">sentinel_edit</code> <span class="tool-desc">structured file edits</span></div>
+            <div class="tool-row"><code class="tool-name">sentinel_script_run</code> <span class="tool-desc">temp bash / python script</span></div>
+            <div class="tool-row"><code class="tool-name">sentinel_service</code> <span class="tool-desc">start / stop / restart / reload</span></div>
+            <div class="tool-row"><code class="tool-name">sentinel_upload_file</code> <span class="tool-desc">upload to host</span></div>
+            <div class="tool-row"><code class="tool-name">sentinel_list_hosts</code> <span class="tool-desc">multi-host fleet view</span></div>
+          </div>
+          <div class="spec-foot">&hellip;and more &mdash; see the agent's docs</div>
         </div>
         <div style="margin-top:1.5rem;">
-          <div class="code-block" style="font-size:0.75rem;line-height:1.9;">
-<span class="comment"># open standards, no vendor lock-in</span>
-
-<span class="kw">protocol</span>      <span class="str">Model Context Protocol (MCP)</span>
-<span class="kw">transport</span>     <span class="str">Streamable HTTP</span>
-<span class="kw">auth</span>          <span class="str">OAuth 2.0 / OIDC + DCR</span>
-<span class="kw">identity</span>      <span class="str">Google sign-in</span>
-<span class="kw">agent</span>         <span class="str">Apache 2.0-licensed, open source</span>
+          <div class="spec-block">
+            <div class="spec-label">// open standards, no vendor lock-in</div>
+            <div class="spec-list">
+              <div class="spec-row"><span class="spec-key">protocol</span><span class="spec-val">Model Context Protocol (MCP)</span></div>
+              <div class="spec-row"><span class="spec-key">transport</span><span class="spec-val">Streamable HTTP</span></div>
+              <div class="spec-row"><span class="spec-key">auth</span><span class="spec-val">OAuth 2.0 / OIDC + DCR</span></div>
+              <div class="spec-row"><span class="spec-key">identity</span><span class="spec-val">Google sign-in</span></div>
+              <div class="spec-row"><span class="spec-key">agent</span><span class="spec-val">Apache 2.0-licensed, open source</span></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- editor & CLI clients: drop-in JSON config -->
+  </div>
+</section>
+
+<!-- DEV WORKFLOWS -->
+<section id="dev">
+  <div class="container">
+    <div class="section-label">// beyond ops</div>
+    <h2>Persistent dev sessions, <span class="accent">with memory.</span></h2>
+    <p class="section-intro">Most AI coding tools start every session from zero. SentinelX runs inside your chat, so context and decisions accumulate across days. Add <code>git</code> on the host and the AI actually remembers your project.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 — REFACTOR OVER DAYS</div>
+        <h3>Iterate on a repo across sessions</h3>
+        <p>Clone once, refactor over a week. Thursday's session remembers what Monday tried.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02 — DEBUG WITH HISTORY</div>
+        <h3>Bugs that need yesterday's context</h3>
+        <p><em>"Remember the timeout from last week? It came back."</em> The chat holds the thread; the agent re-runs the diagnostics live.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03 — DECISIONS THAT STICK</div>
+        <h3>Architecture rationale stays decided</h3>
+        <p>Why Postgres over SQLite, why the worker is on its own host. The reasoning lives in the conversation, not in comments you'll forget to grep.</p>
+      </div>
+    </div>
+
+    <div class="output-box" style="margin-top:3rem;">
+      <div style="font-family:var(--mono);font-size:0.65rem;color:var(--fg3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">// dogfooded</div>
+      <p style="font-size:0.95rem;color:var(--fg);font-weight:400;line-height:1.6;margin-bottom:0.5rem;">This site was built and is continuously updated <span class="hi">with SentinelX</span>.</p>
+      <p style="font-size:0.85rem;color:var(--fg2);font-weight:300;line-height:1.7;margin:0;">The agent edits <code>/var/www/sentinelx.pensa.ar/index.html</code> directly, with <code>git</code> tracking every change. <span class="dim">Including this paragraph.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section id="security">
+  <div class="container">
+    <div class="section-label">// security model</div>
+    <h2>Least privilege, <span class="accent">by design.</span></h2>
+    <p class="section-intro">The agent is open source — audit exactly what runs on your server.</p>
+    <div class="security-grid">
+      <div class="sec-card"><div class="sec-icon">🔒</div><h3>Command allowlist</h3><p>Only commands explicitly listed in the policy run. Paths and arguments are validated too.</p></div>
+      <div class="sec-card"><div class="sec-icon">👤</div><h3>Isolated service user</h3><p>A dedicated <code>sentinelx</code> user, no login shell, sudo scoped to exactly what the policy permits.</p></div>
+      <div class="sec-card"><div class="sec-icon">🎟</div><h3>OAuth via Google</h3><p>Google sign-in, JWT sessions with explicit scopes. The agent only trusts the hub.</p></div>
+      <div class="sec-card"><div class="sec-icon">🔑</div><h3>Outbound only</h3><p>One outbound WebSocket. No inbound ports, no public DNS, no certificates. Your firewall stays closed.</p></div>
+      <div class="sec-card"><div class="sec-icon">📋</div><h3>Audit log</h3><p>Every operation logged: user, host, command, output, return code. Blocked attempts too.</p></div>
+      <div class="sec-card"><div class="sec-icon">🧰</div><h3>Open-source agent</h3><p>The agent is Apache 2.0-licensed and lives at <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank" style="color:var(--accent);text-decoration:none;">pensados/sentinelx-cloud-core</a>. Read it, fork it, run a fork — it's yours.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITOR & CLI CLIENTS -->
+<section id="editor-clients">
+  <div class="container">
+<!-- editor & CLI clients: drop-in JSON config -->
     <style>
       .cb-wrap { position: relative; }
       .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; display: inline-flex; align-items: center; gap: 0.35rem; background: var(--bg3); border: 1px solid var(--border); color: var(--fg3); font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.05em; padding: 0.3rem 0.5rem; cursor: pointer; border-radius: 3px; transition: color .15s, border-color .15s; user-select: none; }
@@ -515,39 +577,6 @@
         try { var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); } catch(e){}
       }
     </script>
-  </div>
-</section>
-
-<!-- DEV WORKFLOWS -->
-<section id="dev">
-  <div class="container">
-    <div class="section-label">// beyond ops</div>
-    <h2>Persistent dev sessions, <span class="accent">with memory.</span></h2>
-    <p class="section-intro">Most AI coding tools start every session from zero. SentinelX runs inside your chat, so context and decisions accumulate across days. Add <code>git</code> on the host and the AI actually remembers your project.</p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01 — REFACTOR OVER DAYS</div>
-        <h3>Iterate on a repo across sessions</h3>
-        <p>Clone once, refactor over a week. Thursday's session remembers what Monday tried.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02 — DEBUG WITH HISTORY</div>
-        <h3>Bugs that need yesterday's context</h3>
-        <p><em>"Remember the timeout from last week? It came back."</em> The chat holds the thread; the agent re-runs the diagnostics live.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03 — DECISIONS THAT STICK</div>
-        <h3>Architecture rationale stays decided</h3>
-        <p>Why Postgres over SQLite, why the worker is on its own host. The reasoning lives in the conversation, not in comments you'll forget to grep.</p>
-      </div>
-    </div>
-
-    <div class="output-box" style="margin-top:3rem;">
-      <div style="font-family:var(--mono);font-size:0.65rem;color:var(--fg3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">// dogfooded</div>
-      <p style="font-size:0.95rem;color:var(--fg);font-weight:400;line-height:1.6;margin-bottom:0.5rem;">This site was built and is continuously updated <span class="hi">with SentinelX</span>.</p>
-      <p style="font-size:0.85rem;color:var(--fg2);font-weight:300;line-height:1.7;margin:0;">The agent edits <code>/var/www/sentinelx.pensa.ar/index.html</code> directly, with <code>git</code> tracking every change. <span class="dim">Including this paragraph.</span></p>
-    </div>
   </div>
 </section>
 
