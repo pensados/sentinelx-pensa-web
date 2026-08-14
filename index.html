@@ -122,6 +122,21 @@
   .install-hero .prompt { color: var(--accent); }
   .install-hero .cmd { color: var(--fg); }
   .install-hero .comment { color: var(--fg3); font-style: italic; }
+  .install-hero .os-tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.35rem; }
+  .install-hero .os-tab { background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--fg3); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em; padding: 0.55rem 0.95rem; cursor: pointer; transition: color .15s, border-color .15s; }
+  .install-hero .os-tab:hover { color: var(--fg2); }
+  .install-hero .os-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .install-hero .os-panel { display: none; }
+  .install-hero .os-panel.active { display: block; }
+  .install-hero .cmd-row { display: flex; align-items: flex-start; gap: 0.75rem; }
+  .install-hero .cmd-block { flex: 1; min-width: 0; margin: 0; font-family: var(--mono); font-size: 0.82rem; line-height: 1.85; color: var(--fg); white-space: pre; overflow-x: auto; }
+  .install-hero .cmd-block .prompt { color: var(--accent); user-select: none; }
+  .install-hero .copy-btn { position: static; flex: none; }
+  .install-hero .os-hint { color: var(--fg3); font-style: italic; font-size: 0.75rem; margin: 0.7rem 0 0; }
+  .install-hero .os-hint code { color: var(--amber); font-style: normal; }
+  .install-hero .enroll-line { margin-top: 1.4rem; padding-top: 1.1rem; border-top: 1px solid var(--border); color: var(--fg2); font-size: 0.76rem; line-height: 1.7; }
+  .install-hero .enroll-line a { color: var(--accent); text-decoration: none; }
+  .install-hero .enroll-line a:hover { text-decoration: underline; }
   .arch-block { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; font-family: var(--mono); font-size: 0.8rem; color: var(--fg2); line-height: 1.9; max-width: 720px; margin-bottom: 5rem; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
   .arch-block::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1.25rem; letter-spacing: 0.3em; }
   .arch-block .c-green{color:var(--accent)} .arch-block .c-amber{color:var(--amber)} .arch-block .c-blue{color:var(--blue)} .arch-block .c-dim{color:var(--fg3)} .arch-block .c-comment{color:var(--fg3);font-style:italic}
@@ -220,13 +235,26 @@
   </div>
 
   <div class="install-hero">
-<span class="comment"># one-line install on Linux or macOS</span>
-<span class="prompt">$</span> <span class="cmd">curl -fsSL https://get.sentinelx.app | bash</span>
-
-<span class="comment"># on Windows (PowerShell) — add -User for a no-admin install</span>
-<span class="prompt">PS&gt;</span> <span class="cmd">iwr -useb https://get.sentinelx.app/install.ps1 -OutFile "$env:TEMP\sx.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\sx.ps1"</span>
-
-<span class="comment"># then enroll it: mcp.sentinelx.app → "+ Enroll a new host" → paste token. Done.</span>
+    <div class="os-tabs">
+      <button class="os-tab active" data-os="unix" type="button" onclick="sxTab(this)">Linux / macOS</button>
+      <button class="os-tab" data-os="win" type="button" onclick="sxTab(this)">Windows</button>
+    </div>
+    <div class="os-panel active" data-os="unix">
+      <div class="cmd-row">
+        <pre class="cmd-block"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | bash</pre>
+        <button class="copy-btn" type="button" onclick="sxCopyCmd(this)" data-copy="curl -fsSL https://get.sentinelx.app | bash" aria-label="Copy install command"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
+      </div>
+      <p class="os-hint">One command &mdash; auto-detects Linux or macOS.</p>
+    </div>
+    <div class="os-panel" data-os="win">
+      <div class="cmd-row">
+        <pre class="cmd-block"><span class="prompt">PS&gt;</span> iwr -useb https://get.sentinelx.app/install.ps1 -OutFile "$env:TEMP\sx.ps1"
+    powershell -ExecutionPolicy Bypass -File "$env:TEMP\sx.ps1"</pre>
+        <button class="copy-btn" type="button" onclick="sxCopyCmd(this)" data-copy='iwr -useb https://get.sentinelx.app/install.ps1 -OutFile "$env:TEMP\sx.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\sx.ps1"' aria-label="Copy install command"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-label">Copy</span></button>
+      </div>
+      <p class="os-hint">PowerShell &mdash; needs Python 3.12+ and <code>git</code>. Add <code>-User</code> for a no-admin install.</p>
+    </div>
+    <div class="enroll-line">Then enroll: <a href="https://mcp.sentinelx.app/dashboard" target="_blank">mcp.sentinelx.app</a> &rarr; "+ Enroll a new host" &rarr; paste token. Done.</div>
   </div>
 
   <div class="stat-strip">
@@ -561,5 +589,19 @@
   </div>
 </footer>
 
+<script>
+function sxTab(btn){
+  var os = btn.getAttribute('data-os');
+  var root = btn.closest('.install-hero');
+  root.querySelectorAll('.os-tab').forEach(function(t){ t.classList.toggle('active', t === btn); });
+  root.querySelectorAll('.os-panel').forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-os') === os); });
+}
+function sxCopyCmd(btn){
+  var text = btn.getAttribute('data-copy'); if(!text) return;
+  function fb(){ btn.classList.add('copied'); var l=btn.querySelector('.copy-label'); if(l) l.textContent='Copied'; setTimeout(function(){ btn.classList.remove('copied'); if(l) l.textContent='Copy'; },1600); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(fb).catch(function(){ if(window.sxFallbackCopy) sxFallbackCopy(text); fb(); }); }
+  else { if(window.sxFallbackCopy) sxFallbackCopy(text); fb(); }
+}
+</script>
 </body>
 </html>
