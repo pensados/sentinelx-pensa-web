@@ -19,20 +19,20 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0c0f; --bg2: #0f1216; --bg3: #141820;
-    --surface: #1a1f28; --surface2: #222834;
-    --border: #2a3040; --border2: #3a4558;
-    --fg: #d4dae8; --fg2: #8a96b0; --fg3: #5a6478;
-    --accent: #4af0a0; --accent2: #2acc7a;
-    --accent-dim: rgba(74,240,160,0.08); --accent-dim2: rgba(74,240,160,0.15);
+    --bg: #0a0e14; --bg2: #131821; --bg3: #1a212d;
+    --surface: #131821; --surface2: #1a212d;
+    --border: #1f2937; --border2: #2a3441;
+    --fg: #e6edf3; --fg2: #94a3b8; --fg3: #64748b;
+    --accent: #5eead4; --accent2: #2dd4bf;
+    --accent-dim: rgba(94,234,212,0.08); --accent-dim2: rgba(94,234,212,0.15);
     --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+  body { background: var(--bg); background-image: radial-gradient(ellipse 900px 500px at 50% -120px, rgba(94,234,212,0.06), transparent 70%); background-attachment: fixed; color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
   body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 48px 48px; opacity: 0.25; pointer-events: none; z-index: 0; }
   * { position: relative; z-index: 1; }
-  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,12,15,0.85); position: sticky; top: 0; z-index: 100; }
+  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,14,20,0.85); position: sticky; top: 0; z-index: 100; }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; }
   .nav-logo { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
   .nav-logo::before { content: '▸'; animation: blink 1.2s step-end infinite; }
@@ -73,7 +73,7 @@
   .list-wrap h1 .accent { color: var(--accent); }
   .list-intro { color: var(--fg2); font-weight: 300; font-size: 1.05rem; max-width: 620px; margin-bottom: 3.5rem; line-height: 1.7; }
   .post { display: block; text-decoration: none; border: 1px solid var(--border); background: var(--bg2); padding: 1.75rem 2rem; margin-bottom: 1.5rem; transition: all 0.2s; }
-  .post:hover { border-color: var(--accent); background: var(--bg3); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(74,240,160,0.05); }
+  .post:hover { border-color: var(--accent); background: var(--bg3); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(94,234,212,0.05); }
   .post-meta { font-family: var(--mono); font-size: 0.7rem; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.85rem; }
   .post-meta span { color: var(--accent); }
   .post-title { font-family: var(--mono); font-size: 1.3rem; font-weight: 500; color: var(--fg); line-height: 1.3; margin-bottom: 0.6rem; letter-spacing: -0.01em; }

@@ -61,18 +61,18 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0c0f; --bg2: #0f1216; --bg3: #141820;
-    --surface: #1a1f28; --surface2: #222834;
-    --border: #2a3040; --border2: #3a4558;
-    --fg: #d4dae8; --fg2: #8a96b0; --fg3: #5a6478;
-    --accent: #4af0a0; --accent2: #2acc7a;
-    --accent-dim: rgba(74,240,160,0.08); --accent-dim2: rgba(74,240,160,0.15);
-    --amber: #f0b44a; --blue: #4a9ef0; --red: #f04a6a; --purple: #9a7af0;
+    --bg: #0a0e14; --bg2: #131821; --bg3: #1a212d;
+    --surface: #131821; --surface2: #1a212d;
+    --border: #1f2937; --border2: #2a3441;
+    --fg: #e6edf3; --fg2: #94a3b8; --fg3: #64748b;
+    --accent: #5eead4; --accent2: #2dd4bf;
+    --accent-dim: rgba(94,234,212,0.08); --accent-dim2: rgba(94,234,212,0.15);
+    --amber: #fbbf24; --blue: #60a5fa; --red: #f87171; --purple: #a78bfa;
     --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body { background: var(--bg); background-image: radial-gradient(ellipse 900px 500px at 50% -120px, rgba(94,234,212,0.06), transparent 70%); background-attachment: fixed; color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
   body::before {
     content: ''; position: fixed; inset: 0;
     background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
@@ -80,7 +80,7 @@
   }
   * { position: relative; z-index: 1; }
   .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,12,15,0.85); position: sticky; top: 0; z-index: 100; }
+  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,14,20,0.85); position: sticky; top: 0; z-index: 100; }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; }
   .nav-logo { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
   .nav-logo::before { content: '▸'; animation: blink 1.2s step-end infinite; }
@@ -117,7 +117,7 @@
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
   .btn-secondary { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); border: 1px solid var(--border2); padding: 0.75rem 1.75rem; text-decoration: none; letter-spacing: 0.05em; transition: all 0.2s; background: transparent; display: inline-flex; align-items: center; gap: 0.5rem; }
   .btn-secondary:hover { border-color: var(--accent); background: var(--accent-dim); }
-  .install-hero { background: var(--bg2); border: 1px solid var(--accent); padding: 2rem; font-family: var(--mono); font-size: 0.85rem; color: var(--fg2); line-height: 2; max-width: 720px; margin-bottom: 2rem; box-shadow: 0 0 40px rgba(74,240,160,0.06); }
+  .install-hero { background: var(--bg2); border: 1px solid var(--accent); padding: 2rem; font-family: var(--mono); font-size: 0.85rem; color: var(--fg2); line-height: 2; max-width: 720px; margin-bottom: 2rem; box-shadow: 0 0 40px rgba(94,234,212,0.06); }
   .install-hero::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1.25rem; letter-spacing: 0.3em; }
   .install-hero .prompt { color: var(--accent); }
   .install-hero .cmd { color: var(--fg); }
@@ -144,7 +144,7 @@
   .arch-clients .arch-node-title { color: var(--blue); }
   .arch-hub { border-color: rgba(240,180,74,0.5); }
   .arch-hub .arch-node-title { color: var(--amber); }
-  .arch-agent { border-color: var(--accent); box-shadow: 0 0 30px rgba(74,240,160,0.06); }
+  .arch-agent { border-color: var(--accent); box-shadow: 0 0 30px rgba(94,234,212,0.06); }
   .arch-agent .arch-node-title { color: var(--accent); }
   .arch-conn { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; padding: 0.55rem 0; }
   .arch-arrow { color: var(--fg3); font-size: 1.1rem; line-height: 1; }
@@ -171,9 +171,9 @@
   .sec-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
   .sec-card h3 { font-family: var(--mono); font-size: 0.85rem; font-weight: 500; color: var(--fg); margin-bottom: 0.5rem; }
   .sec-card p { font-size: 0.82rem; color: var(--fg2); font-weight: 300; line-height: 1.6; }
-  .code-block { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 2rem; font-family: var(--mono); font-size: 0.8rem; line-height: 1.8; color: var(--fg2); overflow-x: auto; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
+  .code-block { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 2rem; font-family: var(--mono); font-size: 0.8rem; line-height: 1.8; color: var(--fg2); overflow-x: auto; box-shadow: 0 0 30px rgba(94,234,212,0.03); }
   .code-block .prompt{color:var(--accent);user-select:none} .code-block .cmd{color:var(--fg)} .code-block .comment{color:var(--fg3);font-style:italic} .code-block .str{color:var(--amber)} .code-block .kw{color:var(--purple)}
-  .spec-block { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 1.75rem; box-shadow: 0 0 30px rgba(74,240,160,0.03); }
+  .spec-block { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 1.75rem; box-shadow: 0 0 30px rgba(94,234,212,0.03); }
   .spec-label { font-family: var(--mono); font-size: 0.7rem; color: var(--fg3); letter-spacing: 0.1em; margin-bottom: 1rem; }
   .tool-list, .spec-list { display: flex; flex-direction: column; gap: 0.5rem; }
   .tool-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.6rem; font-family: var(--mono); font-size: 0.78rem; line-height: 1.5; }
