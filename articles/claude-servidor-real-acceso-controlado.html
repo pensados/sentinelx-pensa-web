@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude on a Real Server — Without Giving It Unlimited Access — SentinelX</title>
+<title>Claude en un servidor real — sin darle acceso ilimitado — SentinelX</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta name="description" content="A real SentinelX session with Claude shows the core security model in action: the AI discovers the host's capabilities, works inside explicit boundaries, and still gets useful infrastructure work done.">
+<meta name="description" content="Una sesión real de SentinelX con Claude muestra el modelo de seguridad en acción: la IA descubre las capacidades del host, trabaja dentro de límites explícitos y aun así realiza tareas útiles sobre infraestructura.">
 <meta name="author" content="pensa.ar">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://sentinelx.pensa.ar/articles/claude-real-server-controlled-access.html">
+<link rel="canonical" href="https://sentinelx.pensa.ar/articles/claude-servidor-real-acceso-controlado.html">
 <link rel="alternate" hreflang="en" href="https://sentinelx.pensa.ar/articles/claude-real-server-controlled-access.html">
 <link rel="alternate" hreflang="es" href="https://sentinelx.pensa.ar/articles/claude-servidor-real-acceso-controlado.html">
 <link rel="alternate" hreflang="x-default" href="https://sentinelx.pensa.ar/articles/claude-real-server-controlled-access.html">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://sentinelx.pensa.ar/articles/claude-real-server-controlled-access.html">
-<meta property="og:title" content="Claude on a Real Server — Without Giving It Unlimited Access">
-<meta property="og:description" content="Claude checks a real Linux server through SentinelX while the host remains in control of what the model can execute and read.">
+<meta property="og:url" content="https://sentinelx.pensa.ar/articles/claude-servidor-real-acceso-controlado.html">
+<meta property="og:title" content="Claude en un servidor real — sin darle acceso ilimitado">
+<meta property="og:description" content="Claude inspecciona un servidor Linux real a través de SentinelX mientras el host mantiene el control sobre lo que el modelo puede ejecutar y leer.">
 <meta property="og:site_name" content="SentinelX">
 <meta property="og:image" content="https://sentinelx.pensa.ar/sentinelx-ram.png">
 <meta property="article:published_time" content="2026-08-15">
 <meta property="article:author" content="pensa.ar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Claude on a Real Server — Without Giving It Unlimited Access">
-<meta name="twitter:description" content="A real SentinelX session: Claude discovers the server's capabilities, works inside the policy, and still gets useful infrastructure work done.">
+<meta name="twitter:title" content="Claude en un servidor real — sin darle acceso ilimitado">
+<meta name="twitter:description" content="Una sesión real con SentinelX: Claude descubre las capacidades del servidor, trabaja dentro de la política y aun así realiza tareas útiles de infraestructura.">
 <meta name="twitter:image" content="https://sentinelx.pensa.ar/sentinelx-ram.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,47 +134,47 @@
   <a class="article-back" href="/articles/">← All articles</a>
   <div class="article-label">Article</div>
   <article>
-    <h1>Claude on a Real Server — Without Giving It Unlimited Access</h1>
-    <p class="article-dek">A real SentinelX session shows the point of the security model: the AI discovers what the host allows, works inside those boundaries, and still gets useful infrastructure work done.</p>
-    <div class="article-meta">Aug 15, 2026 · by <span>pensa.ar</span> · ~4 min read</div>
+    <h1>Claude en un servidor real — sin darle acceso ilimitado</h1>
+    <p class="article-dek">Una sesión real con SentinelX muestra el punto central de su modelo de seguridad: la IA descubre qué permite el host, trabaja dentro de esos límites y aun así puede hacer trabajo útil sobre infraestructura real.</p>
+    <div class="article-meta">15 Ago, 2026 · por <span>pensa.ar</span> · ~4 min de lectura</div>
 
-    <p>Giving an AI assistant access to a server is useful. Giving it unrestricted access is a very different proposition.</p>
-    <p>The screenshot below is a simple SentinelX session with Claude. The request is straightforward: check the server's RAM and storage.</p>
+    <p>Dar acceso a un servidor a un asistente de IA puede ser muy útil. Darle acceso irrestricto es otra cosa.</p>
+    <p>La captura de abajo muestra una sesión sencilla de SentinelX con Claude. La petición es directa: revisar la memoria RAM y el almacenamiento del servidor.</p>
 
     <figure style="margin:2rem 0 2.5rem;">
-      <img src="/sentinelx-ram.png" alt="Claude using SentinelX to inspect RAM and storage on a Linux server" style="display:block;width:100%;height:auto;border:1px solid var(--border2);box-shadow:0 12px 40px rgba(0,0,0,0.28);">
-      <figcaption style="margin-top:0.75rem;font-family:var(--mono);font-size:0.72rem;color:var(--fg3);line-height:1.5;">Claude checking a real Linux server through SentinelX. The model first discovers the capabilities exposed by the host.</figcaption>
+      <img src="/sentinelx-ram.png" alt="Claude usando SentinelX para revisar la memoria RAM y el almacenamiento de un servidor Linux" style="display:block;width:100%;height:auto;border:1px solid var(--border2);box-shadow:0 12px 40px rgba(0,0,0,0.28);">
+      <figcaption style="margin-top:0.75rem;font-family:var(--mono);font-size:0.72rem;color:var(--fg3);line-height:1.5;">Claude revisando un servidor Linux real a través de SentinelX. Primero descubre las capacidades que el host decidió exponer.</figcaption>
     </figure>
 
-    <h2>The interesting part happens before the command runs</h2>
-    <p>Claude does not begin by assuming it has a shell with unlimited privileges. It asks SentinelX what the host allows.</p>
-    <p>In this case, Claude discovers that <code>free</code> is not in the command allowlist. Instead of bypassing the restriction, it works with what is available: <code>df -h</code> for storage and permitted access to Linux memory information for RAM.</p>
-    <p>The result is still useful. Claude can summarize memory pressure, disk usage, and the health of the machine. But the route it takes is constrained by policy defined on the server.</p>
+    <h2>Lo interesante ocurre antes de ejecutar el comando</h2>
+    <p>Claude no empieza asumiendo que tiene una shell con privilegios ilimitados. Primero consulta a SentinelX qué capacidades están disponibles en ese host.</p>
+    <p>En este caso descubre que <code>free</code> no está en la allowlist de comandos. En vez de intentar saltarse la restricción, trabaja con lo que sí está permitido: <code>df -h</code> para el almacenamiento y acceso autorizado a la información de memoria de Linux para obtener el estado de la RAM.</p>
+    <p>El resultado sigue siendo útil. Claude puede resumir la presión de memoria, el uso de disco y el estado general de la máquina. Pero el camino que toma está limitado por una política definida en el servidor.</p>
 
-    <h2>The host defines the boundaries</h2>
-    <p>This is an important distinction in SentinelX: <strong>the model does not decide what it is allowed to do. The host does.</strong></p>
-    <p>A SentinelX agent can expose a deliberately limited set of capabilities, including:</p>
+    <h2>El host define los límites</h2>
+    <p>Esta es una distinción importante en SentinelX: <strong>el modelo no decide qué puede hacer. El host lo decide.</strong></p>
+    <p>Un agente SentinelX puede exponer un conjunto deliberadamente limitado de capacidades, por ejemplo:</p>
     <ul>
-      <li>an explicit command allowlist;</li>
-      <li>filesystem paths scoped as read-only or read-write;</li>
-      <li>specific services and the actions permitted on each one;</li>
-      <li>structured file operations;</li>
-      <li>playbooks that describe safe, repeatable operational procedures.</li>
+      <li>una allowlist explícita de comandos;</li>
+      <li>rutas del filesystem con permisos de solo lectura o lectura/escritura;</li>
+      <li>servicios específicos y las acciones permitidas sobre cada uno;</li>
+      <li>operaciones estructuradas sobre archivos;</li>
+      <li>playbooks que describen procedimientos operativos seguros y repetibles.</li>
     </ul>
-    <p>Claude, ChatGPT, or another MCP client can discover those capabilities and reason within them. If an operation is outside the policy, SentinelX refuses it at the agent boundary.</p>
+    <p>Claude, ChatGPT o cualquier otro cliente MCP puede descubrir esas capacidades y razonar dentro de ellas. Si una operación queda fuera de la política, SentinelX la rechaza en el límite del agente.</p>
 
-    <h2>Not just “an LLM with SSH”</h2>
-    <p>The goal is not to turn a language model into an unrestricted remote shell. It is to create a controlled interface between AI and real infrastructure.</p>
-    <p>That means the AI can still perform useful operational work: inspect a machine, read logs, diagnose services, edit an approved project directory, restart an allowed service, or follow a troubleshooting playbook. But each capability exists because the operator chose to expose it.</p>
-    <blockquote>Useful infrastructure access is much more interesting when the boundaries are explicit.</blockquote>
+    <h2>No es simplemente “un LLM con SSH”</h2>
+    <p>El objetivo no es convertir a un modelo de lenguaje en una shell remota sin restricciones. Es construir una interfaz controlada entre la IA y la infraestructura real.</p>
+    <p>Eso permite que la IA siga haciendo trabajo operativo útil: inspeccionar una máquina, leer logs, diagnosticar servicios, editar un directorio aprobado, reiniciar un servicio permitido o seguir un playbook de troubleshooting. Pero cada capacidad existe porque el operador decidió exponerla.</p>
+    <blockquote>El acceso de una IA a infraestructura se vuelve mucho más interesante cuando los límites son explícitos.</blockquote>
 
-    <h2>AI infrastructure access with a policy in the middle</h2>
-    <p>This small RAM-and-storage check captures the basic SentinelX idea surprisingly well. Claude receives a goal, discovers the server's actual capabilities, adapts its approach, and produces a useful answer without needing unrestricted access.</p>
-    <p>The conversation remains natural. The enforcement does not.</p>
-    <p><strong>The model reasons. SentinelX enforces. The server stays in control.</strong></p>
+    <h2>Acceso de IA a infraestructura, con una política en el medio</h2>
+    <p>Esta pequeña comprobación de RAM y almacenamiento resume bastante bien la idea detrás de SentinelX. Claude recibe un objetivo, descubre las capacidades reales del servidor, adapta su estrategia y produce una respuesta útil sin necesitar acceso irrestricto.</p>
+    <p>La conversación sigue siendo natural. La aplicación de la política no lo es.</p>
+    <p><strong>El modelo razona. SentinelX aplica la política. El servidor mantiene el control.</strong></p>
   </article>
   <div class="article-footer-cta">
-    <p>SentinelX is open source (Apache-2.0). Connect your own Linux or macOS host in a couple of minutes:</p>
+    <p>SentinelX es open source (Apache-2.0). Conecta tu propio host Linux o macOS en un par de minutos:</p>
     <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | sudo bash</div>
   </div>
 </div>
