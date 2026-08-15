@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX MCP — In the wild</title>
+<meta name="description" content="SentinelX MCP across the web: listed on the GitHub MCP Registry, the ChatGPT app directory, and covered by the developer community.">
+<meta property="og:title" content="SentinelX MCP — In the wild">
+<meta property="og:description" content="Where to find SentinelX MCP: official registries and community coverage.">
+<meta property="og:site_name" content="SentinelX MCP">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0e14;--bg2:#0f141c;--card:#131821;--line:#1f2937;--line2:#2a3441;--teal:#5eead4;--teal2:#2dd4bf;--ink:#e6edf3;--mut:#94a3b8;--dim:#64748b;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);background-image:radial-gradient(ellipse 900px 500px at 50% -160px,rgba(94,234,212,.09),transparent 70%);background-repeat:no-repeat;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;}
+  .wrap{max-width:840px;margin:0 auto;padding:0 22px;}
+  header{padding:26px 0 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;}
+  .logo{display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;color:var(--teal);letter-spacing:.04em;text-decoration:none;}
+  .logo svg{width:20px;height:20px;}
+  .hero{padding:52px 0 30px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--teal);}
+  h1{font-family:'IBM Plex Mono',monospace;font-size:34px;font-weight:600;line-height:1.15;letter-spacing:-.02em;margin:0 0 16px;}
+  h1 .x{color:var(--teal);}
+  .lead{font-size:17px;font-weight:300;color:var(--mut);max-width:620px;}
+  section{padding:34px 0 8px;}
+  .sec-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin:0 0 4px;}
+  .sec-sub{font-size:14px;color:var(--dim);margin:0 0 20px;font-weight:300;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){.cards{grid-template-columns:1fr;}h1{font-size:27px;}}
+  a.card{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line2);padding:18px 20px;transition:border-color .15s,transform .15s;position:relative;}
+  a.card:hover{border-color:var(--teal);transform:translateY(-2px);}
+  a.card.feat{border-color:rgba(94,234,212,.4);box-shadow:0 0 40px rgba(94,234,212,.05);}
+  .card .badge{position:absolute;top:14px;right:16px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;}
+  .card .name{font-family:'IBM Plex Mono',monospace;font-size:15.5px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+  .card .src{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--dim);}
+  .card .desc{font-size:13.5px;color:var(--mut);font-weight:300;margin-top:8px;line-height:1.55;}
+  .card .arrow{color:var(--teal);}
+  .mini{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
+  a.pill{text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--mut);background:var(--bg2);border:1px solid var(--line);padding:8px 14px;transition:border-color .15s,color .15s;}
+  a.pill:hover{border-color:var(--teal);color:var(--teal);}
+  footer{margin-top:44px;padding:24px 0 40px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--dim);}
+  footer a{color:var(--dim);text-decoration:none;}
+  footer a:hover{color:var(--teal);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/">
+      <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="m378.2 206.6h-32.7l-39.8 98.1q-29.6 72.7-45.9 100.2-16 27.5-40.7 46.9-35.9 28.3-83.2 28.3-50 0-81.1-31.6-31.1-31.6-31.1-82.1 0-67.5 49.2-117.9 26.6-27.3 66.6-43.8 39.9-16.8 79.1-16.8 18.9 0 30.4 8.6 11.5 8.4 11.5 22.3 0 14.6-12.4 23.4-7.2 5.3-27.5 7.2-47.4 4.3-76.8 21.8-24.4 14.6-38.6 38.3-14.1 23.4-14.1 49.5 0 26.6 13.7 42.3 13.8 15.6 37 15.6 29.2 0 50.5-24.6 21.3-24.7 46.9-87.6l83-204.1h-26q-33.1 0-33.1-23 0-16.2 11.5-25.1 11.8-9.1 32.8-9.1h91.2q45.9 0 67.7 17.5 22 17.2 22 53.3 0 44.1-34 72.1-24.6 20.3-76.1 20.3zm10.3-106l-19.8 48.8h19.3q38.3 0 38.3-31.1 0-17.7-21.8-17.7z"/></svg>
+      SentinelX <span style="color:var(--dim);font-weight:400;">MCP</span>
+    </a>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">In the wild</div>
+    <h1>SentinelX <span class="x">MCP</span> across the web</h1>
+    <p class="lead">Where to find SentinelX MCP — the official registries you can install it from, and where the developer community has picked it up.</p>
+  </div>
+
+  <section>
+    <div class="sec-title">Available on</div>
+    <p class="sec-sub">Official directories — discover and connect in a click.</p>
+    <div class="cards">
+      <a class="card feat" href="https://github.com/mcp/app.sentinelx/sentinelx">
+        <span class="badge">Official</span>
+        <div class="name">GitHub MCP Registry</div>
+        <div class="src">github.com/mcp</div>
+        <div class="desc">Listed in GitHub's MCP Registry, with the full agent README, architecture, and security model. <span class="arrow">&rarr;</span></div>
+      </a>
+      <a class="card feat" href="https://chatgpt.com/apps/sentinelx/asdk_app_69f63e01766881919640f03b5e7912a5">
+        <span class="badge">1-click</span>
+        <div class="name">ChatGPT app directory</div>
+        <div class="src">chatgpt.com/apps</div>
+        <div class="desc">ChatGPT users can connect SentinelX in one click — no custom MCP URL required. <span class="arrow">&rarr;</span></div>
+      </a>
+    </div>
+    <div style="margin-top:14px;">
+      <p class="sec-sub" style="margin-bottom:12px;">Also listed on community MCP directories:</p>
+      <div class="mini">
+        <a class="pill" href="https://mcpmarket.com/server/sentinelx-core">mcpmarket.com &rarr;</a>
+        <a class="pill" href="https://mcp.pub/servers/sentinelx">mcp.pub &rarr;</a>
+        <a class="pill" href="https://gold.safeguard.sh/mcp/app.sentinelx__sentinelx">safeguard.sh &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">In the wild</div>
+    <p class="sec-sub">Written by the community, not by us.</p>
+    <div class="cards">
+      <a class="card" href="https://blog.csdn.net/weixin_28679635/article/details/160837043">
+        <span class="badge">中文 · CN</span>
+        <div class="name">SentinelX deployment guide</div>
+        <div class="src">blog.csdn.net · by 梁培定</div>
+        <div class="desc">A detailed, independent deployment walkthrough written by a developer in China — down to the two-layer auth model. <span class="arrow">&rarr;</span></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    &mdash; <a href="https://sentinelx.pensa.ar">sentinelx.pensa.ar</a> &middot; <a href="https://sentinelx.app">install</a> &middot; <a href="https://github.com/pensados/sentinelx-cloud-core">github</a>
+  </footer>
+</div>
+</body>
+</html>
