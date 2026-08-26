@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude en un servidor real — sin darle acceso ilimitado — SentinelX MCP</title>
+<title>SentinelX vs Hermes — dos formas de conectar una IA a tus servidores — SentinelX MCP</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta name="description" content="Una sesión real de SentinelX con Claude muestra el modelo de seguridad en acción: la IA descubre las capacidades del host, trabaja dentro de límites explícitos y aun así realiza tareas útiles sobre infraestructura.">
+<meta name="description" content="Hermes, de Nous Research, es uno de los agentes de IA más comentados de 2026. Comparamos SentinelX y Hermes: en qué se parecen, en qué se diferencian y por qué con uno le hablás al agente y con el otro le hablás a tu propio LLM.">
 <meta name="author" content="pensa.ar">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://sentinelx.pensa.ar/articles/claude-servidor-real-acceso-controlado.html">
-<link rel="alternate" hreflang="en" href="https://sentinelx.pensa.ar/articles/claude-real-server-controlled-access.html">
-<link rel="alternate" hreflang="es" href="https://sentinelx.pensa.ar/articles/claude-servidor-real-acceso-controlado.html">
-<link rel="alternate" hreflang="x-default" href="https://sentinelx.pensa.ar/articles/claude-real-server-controlled-access.html">
+<link rel="canonical" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes.html">
+<link rel="alternate" hreflang="es" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes.html">
+<link rel="alternate" hreflang="en" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes-en.html">
+<link rel="alternate" hreflang="x-default" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes-en.html">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://sentinelx.pensa.ar/articles/claude-servidor-real-acceso-controlado.html">
-<meta property="og:title" content="Claude en un servidor real — sin darle acceso ilimitado">
-<meta property="og:description" content="Claude inspecciona un servidor Linux real a través de SentinelX mientras el host mantiene el control sobre lo que el modelo puede ejecutar y leer.">
+<meta property="og:url" content="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes.html">
+<meta property="og:title" content="SentinelX vs Hermes — dos formas de conectar una IA a tus servidores">
+<meta property="og:description" content="Con Hermes le hablás al agente a través de su gateway. Con SentinelX le hablás al LLM que ya usás y él opera tus hosts bajo una política definida por el servidor.">
 <meta property="og:site_name" content="SentinelX MCP">
-<meta property="og:image" content="https://sentinelx.pensa.ar/sentinelx-ram.png">
-<meta property="article:published_time" content="2026-08-15">
+<meta property="og:image" content="https://sentinelx.pensa.ar/og-image.png">
+<meta property="article:published_time" content="2026-08-26">
 <meta property="article:author" content="pensa.ar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Claude en un servidor real — sin darle acceso ilimitado">
-<meta name="twitter:description" content="Una sesión real con SentinelX: Claude descubre las capacidades del servidor, trabaja dentro de la política y aun así realiza tareas útiles de infraestructura.">
-<meta name="twitter:image" content="https://sentinelx.pensa.ar/sentinelx-ram.png">
+<meta name="twitter:title" content="SentinelX vs Hermes — dos formas de conectar una IA a tus servidores">
+<meta name="twitter:description" content="Dos agentes open-source para operar infraestructura real, con filosofías distintas. Cuándo conviene cada uno.">
+<meta name="twitter:image" content="https://sentinelx.pensa.ar/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -109,6 +109,17 @@
   article pre code { background: none; color: var(--fg); padding: 0; font-size: 0.85rem; line-height: 1.7; }
   article hr { border: none; text-align: center; margin: 3rem 0; }
   article hr::before { content: '* * *'; letter-spacing: 0.6em; color: var(--fg3); }
+  .table-scroll { overflow-x: auto; margin: 1.75rem 0; border: 1px solid var(--border); }
+  article table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 560px; }
+  article th, article td { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 0.75rem 0.95rem; text-align: left; vertical-align: top; font-weight: 300; line-height: 1.55; }
+  article tr td:last-child, article tr th:last-child { border-right: none; }
+  article tbody tr:last-child td { border-bottom: none; }
+  article thead th { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; background: var(--bg2); font-weight: 500; }
+  article thead th:nth-child(2) { color: var(--accent); }
+  article thead th:nth-child(3) { color: var(--fg2); }
+  article thead th:first-child { color: var(--fg3); }
+  article td:first-child { font-family: var(--mono); font-size: 0.78rem; color: var(--fg2); white-space: nowrap; }
+  article td strong { color: var(--fg); }
   .article-footer-cta { margin-top: 3rem; padding: 1.75rem; background: var(--bg2); border: 1px solid var(--accent); box-shadow: 0 0 40px rgba(94,234,212,0.06); }
   .article-footer-cta p { margin: 0 0 1rem; font-size: 0.95rem; color: var(--fg2); font-weight: 300; }
   .article-footer-cta .install { font-family: var(--mono); font-size: 0.85rem; color: var(--fg); }
@@ -134,47 +145,77 @@
   <a class="article-back" href="/articles/">← All articles</a>
   <div class="article-label">Article</div>
   <article>
-    <h1>Claude en un servidor real — sin darle acceso ilimitado</h1>
-    <p class="article-dek">Una sesión real con SentinelX muestra el punto central de su modelo de seguridad: la IA descubre qué permite el host, trabaja dentro de esos límites y aun así puede hacer trabajo útil sobre infraestructura real.</p>
-    <div class="article-meta">15 Ago, 2026 · por <span>pensa.ar</span> · ~4 min de lectura</div>
+    <h1>SentinelX vs Hermes: dos formas de conectar una IA a tus servidores</h1>
+    <p class="article-dek">Hermes, de Nous Research, es uno de los agentes de IA más comentados de 2026. Se parece a SentinelX en varias cosas y se diferencia en una fundamental: con Hermes le hablás al agente; con SentinelX le hablás al modelo que ya usás.</p>
+    <div class="article-meta">26 Ago, 2026 · por <span>pensa.ar</span> · ~6 min de lectura</div>
 
-    <p>Dar acceso a un servidor a un asistente de IA puede ser muy útil. Darle acceso irrestricto es otra cosa.</p>
-    <p>La captura de abajo muestra una sesión sencilla de SentinelX con Claude. La petición es directa: revisar la memoria RAM y el almacenamiento del servidor.</p>
+    <p>Si seguís el mundo de los agentes de IA, ya cruzaste con <strong>Hermes</strong>. El agente open-source de <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Nous Research</a> superó las 140.000 estrellas en GitHub en menos de tres meses y, según OpenRouter, llegó a ser el agente más usado del mundo. Es un proyecto excelente, y vale la pena entenderlo.</p>
+    <p>También vale la pena verlo al lado de <strong>SentinelX</strong>, porque los dos tocan el mismo nervio —darle a una IA acceso a máquinas reales— pero resuelven mitades distintas del problema. Este artículo compara ambos con honestidad: en qué se parecen, en qué se diferencian y cuándo conviene cada uno.</p>
 
-    <figure style="margin:2rem 0 2.5rem;">
-      <img src="/sentinelx-ram.png" alt="Claude usando SentinelX para revisar la memoria RAM y el almacenamiento de un servidor Linux" style="display:block;width:100%;height:auto;border:1px solid var(--border2);box-shadow:0 12px 40px rgba(0,0,0,0.28);">
-      <figcaption style="margin-top:0.75rem;font-family:var(--mono);font-size:0.72rem;color:var(--fg3);line-height:1.5;">Claude revisando un servidor Linux real a través de SentinelX. Primero descubre las capacidades que el host decidió exponer.</figcaption>
-    </figure>
+    <h2>Qué es Hermes</h2>
+    <p>Hermes es un <strong>agente autónomo</strong> open-source (licencia MIT), self-hosted, creado por Nous Research y lanzado en febrero de 2026. La idea es que corra siempre, en tu propio servidor o VPS, y que <em>crezca con vos</em>: mantiene memoria persistente entre sesiones, busca en sus conversaciones pasadas y genera sus propias <em>skills</em> reutilizables a partir de lo que va aprendiendo (compatibles con el estándar abierto agentskills.io).</p>
+    <p>La forma de usarlo es lo característico: Hermes vive detrás de un <strong>gateway de mensajería</strong>. Le hablás desde Telegram, Discord, Slack, WhatsApp, Signal, email o su propia terminal (CLI/TUI), y ese mismo proceso maneja las sesiones, corre tareas programadas tipo cron y despacha subagentes. Es, en sí mismo, el agente: trae su propio loop de razonamiento y es agnóstico del modelo —podés enchufarle Nous Portal, OpenRouter, OpenAI o tu propio endpoint—.</p>
 
-    <h2>Lo interesante ocurre antes de ejecutar el comando</h2>
-    <p>Claude no empieza asumiendo que tiene una shell con privilegios ilimitados. Primero consulta a SentinelX qué capacidades están disponibles en ese host.</p>
-    <p>En este caso descubre que <code>free</code> no está en la allowlist de comandos. En vez de intentar saltarse la restricción, trabaja con lo que sí está permitido: <code>df -h</code> para el almacenamiento y acceso autorizado a la información de memoria de Linux para obtener el estado de la RAM.</p>
-    <p>El resultado sigue siendo útil. Claude puede resumir la presión de memoria, el uso de disco y el estado general de la máquina. Pero el camino que toma está limitado por una política definida en el servidor.</p>
+    <h2>Qué es SentinelX</h2>
+    <p>SentinelX <strong>no es un agente</strong>. Es el puente gobernado entre la IA que ya usás y tus servidores. Concretamente, es un <strong>servidor MCP</strong> (Model Context Protocol) open-source (Apache-2.0) que expone hosts Linux, macOS y Windows a cualquier cliente compatible con MCP —Claude, ChatGPT y otros—.</p>
+    <p>No traés un cerebro nuevo: usás el que ya tenés. Abrís tu LLM de siempre y le pedís que opere una máquina; el modelo razona y SentinelX aplica la política. Cada host decide qué expone: una allowlist explícita de comandos, rutas del filesystem en solo-lectura o lectura/escritura, servicios con acciones permitidas, operaciones estructuradas sobre archivos y <em>playbooks</em> que describen procedimientos seguros y repetibles. Si una operación queda fuera de esa política, SentinelX la rechaza en el límite del agente.</p>
+    <blockquote>El modelo razona. SentinelX aplica la política. El servidor mantiene el control.</blockquote>
 
-    <h2>El host define los límites</h2>
-    <p>Esta es una distinción importante en SentinelX: <strong>el modelo no decide qué puede hacer. El host lo decide.</strong></p>
-    <p>Un agente SentinelX puede exponer un conjunto deliberadamente limitado de capacidades, por ejemplo:</p>
+    <h2>La diferencia central: ¿a quién le hablás?</h2>
+    <p>Esta es la distinción que más se nota en el día a día.</p>
+    <p>Con <strong>Hermes</strong>, le hablás <strong>al agente</strong>. Para interactuar tenés que pasar por su superficie: abrís Telegram (o Discord, o su CLI) y conversás con Hermes, que corre con su propio modelo y su propia memoria. Es una entidad nueva que vive en tus apps de chat.</p>
+    <p>Con <strong>SentinelX</strong>, le hablás <strong>a tu LLM de siempre</strong>. Abrís Claude —en el escritorio o en el celular— y le pedís que revise un servidor, edite un sitio o reinicie un servicio. Claude usa SentinelX como una herramienta más vía MCP. No hay un chat nuevo donde vivir ni un asistente nuevo que aprender: es el mismo modelo que ya conocés, ahora con manos sobre tu infraestructura.</p>
+    <p>Dicho corto:</p>
+    <blockquote>Hermes trae el cerebro y te pide un canal para hablarle. SentinelX trae la política y usa el cerebro que ya tenés.</blockquote>
+
+    <h2>En una tabla</h2>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>SentinelX</th><th>Hermes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Qué es</td><td><strong>Puente gobernado</strong> (servidor MCP) hacia tus hosts</td><td><strong>Agente autónomo</strong> que corre solo</td></tr>
+        <tr><td>Cómo le hablás</td><td>Desde tu cliente LLM (Claude, ChatGPT) vía MCP</td><td>Desde su gateway: Telegram, Discord, CLI, etc.</td></tr>
+        <tr><td>Dónde razona</td><td>En el LLM que vos elegís (BYO-LLM)</td><td>En su propio loop de agente integrado</td></tr>
+        <tr><td>Memoria</td><td>La del cliente que uses; SentinelX es sin estado por diseño</td><td>Persistente y propia, crece entre sesiones</td></tr>
+        <tr><td>Capacidades reutilizables</td><td>Playbooks definidos por el host</td><td>Skills autogeneradas (agentskills.io)</td></tr>
+        <tr><td>Modelo de seguridad</td><td>Capacidades definidas por el host: allowlists, rutas r/rw, servicios</td><td>Aislamiento por contenedor + aprobación de comandos</td></tr>
+        <tr><td>Modelos</td><td>Agnóstico (cualquier cliente MCP)</td><td>Agnóstico (Nous Portal, OpenRouter, OpenAI…)</td></tr>
+        <tr><td>Licencia</td><td>Apache-2.0</td><td>MIT</td></tr>
+        <tr><td>Ideal para</td><td>Operar infraestructura real bajo política explícita</td><td>Asistente personal siempre encendido que te sigue</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>En qué se parecen</h2>
     <ul>
-      <li>una allowlist explícita de comandos;</li>
-      <li>rutas del filesystem con permisos de solo lectura o lectura/escritura;</li>
-      <li>servicios específicos y las acciones permitidas sobre cada uno;</li>
-      <li>operaciones estructuradas sobre archivos;</li>
-      <li>playbooks que describen procedimientos operativos seguros y repetibles.</li>
+      <li><strong>Open-source y self-hosted.</strong> Los dos corren en tu propia máquina; tus datos no viven en la nube de un tercero.</li>
+      <li><strong>Agnósticos de modelo.</strong> Ninguno te ata a un proveedor de LLM.</li>
+      <li><strong>Dejan que una IA opere infraestructura real</strong>, no solo que charle sobre ella.</li>
+      <li><strong>Tienen una noción de capacidades reutilizables:</strong> skills en Hermes, playbooks en SentinelX.</li>
+      <li><strong>Multiplataforma</strong> en el sentido amplio: ambos apuntan a Linux, macOS y Windows.</li>
     </ul>
-    <p>Claude, ChatGPT o cualquier otro cliente MCP puede descubrir esas capacidades y razonar dentro de ellas. Si una operación queda fuera de la política, SentinelX la rechaza en el límite del agente.</p>
 
-    <h2>No es simplemente “un LLM con SSH”</h2>
-    <p>El objetivo no es convertir a un modelo de lenguaje en una shell remota sin restricciones. Es construir una interfaz controlada entre la IA y la infraestructura real.</p>
-    <p>Eso permite que la IA siga haciendo trabajo operativo útil: inspeccionar una máquina, leer logs, diagnosticar servicios, editar un directorio aprobado, reiniciar un servicio permitido o seguir un playbook de troubleshooting. Pero cada capacidad existe porque el operador decidió exponerla.</p>
-    <blockquote>El acceso de una IA a infraestructura se vuelve mucho más interesante cuando los límites son explícitos.</blockquote>
+    <h2>En qué se diferencian</h2>
+    <ul>
+      <li><strong>El cerebro.</strong> Hermes trae su propio agente; SentinelX usa el LLM que ya tenés. Uno agrega un asistente nuevo, el otro le da herramientas al que ya usás.</li>
+      <li><strong>La superficie.</strong> A Hermes lo alcanzás por su gateway (chat o CLI propia); a SentinelX lo alcanzás desde tu cliente MCP habitual.</li>
+      <li><strong>El centro de gravedad.</strong> Hermes está pensado como asistente personal que aprende y acumula; SentinelX está pensado como plano de control para operar máquinas con reglas claras.</li>
+      <li><strong>El modelo de seguridad.</strong> Hermes aísla por contenedor y pide aprobación de comandos; SentinelX parte de que <em>el host define los límites</em>: nada existe salvo que el operador lo haya expuesto explícitamente.</li>
+    </ul>
 
-    <h2>Acceso de IA a infraestructura, con una política en el medio</h2>
-    <p>Esta pequeña comprobación de RAM y almacenamiento resume bastante bien la idea detrás de SentinelX. Claude recibe un objetivo, descubre las capacidades reales del servidor, adapta su estrategia y produce una respuesta útil sin necesitar acceso irrestricto.</p>
-    <p>La conversación sigue siendo natural. La aplicación de la política no lo es.</p>
-    <p><strong>El modelo razona. SentinelX aplica la política. El servidor mantiene el control.</strong></p>
+    <h2>¿Cuál te conviene?</h2>
+    <p>No es una pelea de suma cero; dependen de lo que busques.</p>
+    <p>Elegí <strong>Hermes</strong> si querés un compañero de IA siempre encendido que viva en tus apps de chat, aprenda de vos con el tiempo y vaya construyendo su propio repertorio de habilidades. Es un gran asistente personal autónomo.</p>
+    <p>Elegí <strong>SentinelX</strong> si lo que querés es que <em>tu LLM actual</em> pueda operar infraestructura real bajo una política explícita y definida por el servidor —especialmente si administrás una flota de máquinas o trabajás en equipo y te importa el control fino de qué puede tocar la IA y qué no—. No agregás un agente nuevo: le das manos, con límites, al modelo que ya usás todos los días.</p>
+    <p>Y como SentinelX se integra con cualquier cliente MCP, convive sin problemas con el resto de tu stack de IA en lugar de competir por ser el único.</p>
+
+    <hr>
+    <p>La conversación con una IA es cómoda de un lado y del otro. La diferencia está en qué pasa cuando esa IA toca una máquina real. Hermes pone el énfasis en el agente que crece; SentinelX lo pone en la política que protege. Si tu prioridad es esto último, la elección se vuelve simple.</p>
   </article>
   <div class="article-footer-cta">
-    <p>SentinelX es open source (Apache-2.0). Conecta tu propio host Linux, macOS o Windows en un par de minutos:</p>
+    <p>SentinelX es open source (Apache-2.0). Conectá tu propio host Linux, macOS o Windows en un par de minutos y hablale desde el LLM que ya usás:</p>
     <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | bash</div>
     <p style="margin-top:1rem;font-size:0.85rem;color:var(--fg2);">En Windows, ejecut&aacute; el instalador de PowerShell desde <a href="https://get.sentinelx.app" style="color:var(--accent);">get.sentinelx.app</a>.</p>
   </div>

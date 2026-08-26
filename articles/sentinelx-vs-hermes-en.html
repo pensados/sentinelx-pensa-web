@@ -3,24 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Jobs I Actually Use SentinelX MCP For — SentinelX</title>
+<title>SentinelX vs Hermes — Two Ways to Connect an AI to Your Servers — SentinelX MCP</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta name="description" content="A practical field guide to using SentinelX day to day: managing a fleet of servers, editing and deploying sites, coding, resolving git merge conflicts, updating systems, and debugging incidents, all from a chat window.">
+<meta name="description" content="Hermes, by Nous Research, is one of the most talked-about AI agents of 2026. We compare SentinelX and Hermes: what they share, how they differ, and why with one you talk to the agent while with the other you talk to your own LLM.">
 <meta name="author" content="pensa.ar">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://sentinelx.pensa.ar/articles/using-sentinelx-in-practice.html">
+<link rel="canonical" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes-en.html">
+<link rel="alternate" hreflang="en" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes-en.html">
+<link rel="alternate" hreflang="es" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes.html">
+<link rel="alternate" hreflang="x-default" href="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes-en.html">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://sentinelx.pensa.ar/articles/using-sentinelx-in-practice.html">
-<meta property="og:title" content="The Jobs I Actually Use SentinelX MCP For">
-<meta property="og:description" content="A practical field guide to using SentinelX day to day: managing a fleet of servers, editing and deploying sites, coding, resolving git merge conflicts, updating systems, and debugging incidents, all from a chat window.">
+<meta property="og:url" content="https://sentinelx.pensa.ar/articles/sentinelx-vs-hermes-en.html">
+<meta property="og:title" content="SentinelX vs Hermes — Two Ways to Connect an AI to Your Servers">
+<meta property="og:description" content="With Hermes you talk to the agent through its gateway. With SentinelX you talk to the LLM you already use, and it operates your hosts under a host-defined policy.">
 <meta property="og:site_name" content="SentinelX MCP">
 <meta property="og:image" content="https://sentinelx.pensa.ar/og-image.png">
-<meta property="article:published_time" content="2026-08-11">
+<meta property="article:published_time" content="2026-08-26">
 <meta property="article:author" content="pensa.ar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Jobs I Actually Use SentinelX For">
-<meta name="twitter:description" content="A practical field guide to using SentinelX day to day: managing a fleet of servers, editing and deploying sites, coding, resolving git merge conflicts, updating systems, and debugging incidents.">
+<meta name="twitter:title" content="SentinelX vs Hermes — Two Ways to Connect an AI to Your Servers">
+<meta name="twitter:description" content="Two open-source agents for operating real infrastructure, with different philosophies. When each one makes sense.">
 <meta name="twitter:image" content="https://sentinelx.pensa.ar/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,6 +109,17 @@
   article pre code { background: none; color: var(--fg); padding: 0; font-size: 0.85rem; line-height: 1.7; }
   article hr { border: none; text-align: center; margin: 3rem 0; }
   article hr::before { content: '* * *'; letter-spacing: 0.6em; color: var(--fg3); }
+  .table-scroll { overflow-x: auto; margin: 1.75rem 0; border: 1px solid var(--border); }
+  article table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 560px; }
+  article th, article td { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 0.75rem 0.95rem; text-align: left; vertical-align: top; font-weight: 300; line-height: 1.55; }
+  article tr td:last-child, article tr th:last-child { border-right: none; }
+  article tbody tr:last-child td { border-bottom: none; }
+  article thead th { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; background: var(--bg2); font-weight: 500; }
+  article thead th:nth-child(2) { color: var(--accent); }
+  article thead th:nth-child(3) { color: var(--fg2); }
+  article thead th:first-child { color: var(--fg3); }
+  article td:first-child { font-family: var(--mono); font-size: 0.78rem; color: var(--fg2); white-space: nowrap; }
+  article td strong { color: var(--fg); }
   .article-footer-cta { margin-top: 3rem; padding: 1.75rem; background: var(--bg2); border: 1px solid var(--accent); box-shadow: 0 0 40px rgba(94,234,212,0.06); }
   .article-footer-cta p { margin: 0 0 1rem; font-size: 0.95rem; color: var(--fg2); font-weight: 300; }
   .article-footer-cta .install { font-family: var(--mono); font-size: 0.85rem; color: var(--fg); }
@@ -131,46 +145,79 @@
   <a class="article-back" href="/articles/">← All articles</a>
   <div class="article-label">Article</div>
   <article>
-    <h1>The Jobs I Actually Use SentinelX For</h1>
-    <p class="article-dek">A practical field guide, from someone who runs a small fleet of Linux boxes through a chat window instead of a terminal.</p>
-    <div class="article-meta">Aug 11, 2026 · by <span>pensa.ar</span> · ~7 min read</div>
+    <h1>SentinelX vs Hermes: Two Ways to Connect an AI to Your Servers</h1>
+    <p class="article-dek">Hermes, by Nous Research, is one of the most talked-about AI agents of 2026. It resembles SentinelX in several ways and differs in one fundamental one: with Hermes you talk to the agent; with SentinelX you talk to the model you already use.</p>
+    <div class="article-meta">Aug 26, 2026 · by <span>pensa.ar</span> · ~6 min read</div>
 
-<p>I have written before about what SentinelX is and why a capability-based control plane beats handing an AI a shell. This one is different. This is the day-to-day: the concrete jobs I reach for SentinelX to do, on real servers, most of them boring in the best possible way.</p>
-<p>I run a handful of hosts, a mix of a home server, a couple of VPSs, and a laptop, all enrolled into one account. From any chat client connected to the hub, I can talk to all of them. Here is what that actually looks like in practice.</p>
-<h2>1. Running the fleet</h2>
-<p>The most obvious use, and the one I lean on every day, is just operating servers. Not one server. All of them, from the same place.</p>
-<p>I will say something like "check Orion and Atlas, are all services up?" and the agent walks each host, reports the state of nginx, Docker, and the rest, and flags anything inactive. Under the hood it is following a diagnostic playbook, not improvising: check the unit, read the recent journal, tell me what is wrong. If I say "restart nginx on the VPS," it does exactly that, through an action that the host's policy explicitly allows, and nothing broader.</p>
-<p>The nice part is that critical services are fenced off by design. My DNS resolver is marked restart-only, so even if I fat-finger a request, the agent physically cannot stop it and take the network down with it. The policy encodes that operational judgment once, and then it holds.</p>
-<h2>2. Editing and deploying websites</h2>
-<p>This site is the honest example, because it is edited this way. The page you are reading lives in a git-tracked directory that SentinelX has read-write access to. When I want to change a landing page, fix a typo, or publish a new article, I do not open an editor and SFTP anything. I describe the change, the agent makes a structured edit, and the result is validated and committed.</p>
-<p>Every edit leaves a backup and lands in git history, so there is always a trail and always a way back. Adding this very article to the site was a SentinelX operation: new files written into the web root, the listing page updated, the sitemap regenerated, then a commit and a push. The tooling that manages the site is the tooling I am writing about. That closes a loop I find genuinely satisfying.</p>
-<h2>3. Writing and fixing code</h2>
-<p>My project repositories live on the same hosts, and SentinelX can read, search, and edit inside them. So a lot of ordinary development happens through the same interface.</p>
-<p>I will ask it to find where a function is defined across a repo, read the relevant files, and propose a change. Because it can run controlled scripts, it can also execute the test suite or a build and show me the output, then iterate. It is not a replacement for sitting down and thinking hard about a design, but for the mechanical parts, locating something, applying a consistent change across files, running the tests, confirming the diff, it removes a lot of friction. And every mutation is a structured edit with a backup, not a blind overwrite.</p>
-<h2>4. Resolving git merge conflicts</h2>
-<p>This is the one that surprised me most, and it deserves its own section.</p>
-<p>Merge conflicts are tedious precisely because they are mechanical: read both sides, understand the intent, reconcile them, keep the history clean. That is exactly the kind of work that goes well through a structured interface. I can point SentinelX at a repo mid-merge, have it read the conflicted files, walk each hunk with me, and write the resolved version as a proper edit. Then it runs the build or tests to confirm the resolution actually works before anything is committed.</p>
-<p>Because the git operations run through the host's login shell, the agent picks up the right SSH keys and identity automatically, so pushing to a private remote just works. The conflict gets resolved where the code actually lives, not in a copy I pasted into a chat and have to paste back.</p>
-<h2>5. Updating systems and software</h2>
-<p>Keeping things current is another job that is mostly discipline, and discipline is where a structured tool shines. SentinelX ships an update playbook that does the right thing in the right order: check the current commit, fetch and show me exactly which changes are incoming, confirm whether new dependencies are involved, pull with a fast-forward only, reinstall if needed, restart, and then verify against the live process rather than trusting a version string.</p>
-<p>That last part matters more than it sounds. A package's reported version can lie about what is actually running. So the verification step checks the real, live process, not the metadata. For OS packages the same pattern applies through the allowlist: I can have it check for and apply updates, with each command constrained to what the policy permits.</p>
-<h2>6. Debugging incidents</h2>
-<p>When something breaks, the last thing I want is an AI guessing at commands. When I say "the site is throwing 502s," SentinelX runs the nginx troubleshooting playbook: check the service, validate the config with a syntax test before any restart, read the tail of the error log, look at what is actually failing upstream. The order is deliberate, because restarting a service on top of a broken config just gives you a cleanly stopped service and a longer outage.</p>
-<p>There are matching playbooks for Docker, for networking, for open ports, for a general systemd health sweep. They turn "poke around until you find it" into a repeatable checklist, and because everything is read-only until a fix is proposed, I can let it diagnose freely without worrying about what it might touch.</p>
-<h2>7. Reaching past the operating system</h2>
-<p>Real operations do not stop at the box. DNS records, alerts, notifications, and provider APIs are part of the same work. SentinelX exposes some of that at the control-plane level, so I can create or update a Cloudflare DNS record, or fire an operational alert through a messaging provider, without logging into anything or handling the API tokens myself. The credentials stay behind the control plane. The agent knows the capability exists; it never needs to see the key.</p>
-<p>Moving files between hosts is in the same spirit. Instead of streaming a log archive through the model, which is slow and pointless, the agent coordinates a transfer through a temporary file store and verifies the hashes on both ends. It orchestrates the move; the bytes never route through the conversation.</p>
-<h2>8. Extending what it can do, safely</h2>
-<p>Sometimes the thing I want is not yet allowed, and this is where the design earns its keep. If a directory is not readable or a command is not on the allowlist, the operation is refused, and the refusal tells me exactly how to permit it. I can then have the agent walk the playbook that adds the path or the command to the policy, show me the change, and apply it after I approve. The config stays mine. I just stopped being the one who has to open the YAML by hand.</p>
-<p>So the capability set grows deliberately, one reviewed step at a time, and never behind my back. That is a very different feeling from broadening sudo and hoping I remember to tighten it later.</p>
-<h2>The loop that ties it together</h2>
-<p>Put these together and a pattern emerges: SentinelX maintains SentinelX. The agent updates its own code on my hosts through the update playbook. It edits and deploys the very website that documents it. It resolves the merge conflicts in the repositories that build it. The tool operates the infrastructure that runs the tool.</p>
-<p>None of this is exotic. It is the ordinary work of keeping a few servers healthy, a few sites live, and a few repositories moving forward. What changed is the interface. I stopped SSHing into individual machines to run individual commands, and started describing outcomes to something that executes them inside boundaries I defined, keeps a record of everything it did, and can always undo it.</p>
-<p>That is the real pitch. Not that an AI can run commands, but that the day-to-day operation of real infrastructure can become a conversation, without giving up the safety, the auditability, or the control that made you cautious about the idea in the first place.</p>
+    <p>If you follow the AI agent space, you've already run into <strong>Hermes</strong>. The open-source agent from <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Nous Research</a> passed 140,000 GitHub stars in under three months and, according to OpenRouter, became the most-used agent in the world. It's an excellent project, and it's worth understanding.</p>
+    <p>It's also worth looking at next to <strong>SentinelX</strong>, because both touch the same nerve — giving an AI access to real machines — but they solve different halves of the problem. This article compares them honestly: what they share, how they differ, and when each one makes sense.</p>
+
+    <h2>What Hermes is</h2>
+    <p>Hermes is an open-source, self-hosted <strong>autonomous agent</strong> (MIT license), built by Nous Research and released in February 2026. The idea is that it runs continuously, on your own server or VPS, and <em>grows with you</em>: it keeps persistent memory across sessions, searches its past conversations, and generates its own reusable <em>skills</em> from what it learns (compatible with the open agentskills.io standard).</p>
+    <p>The way you use it is the distinctive part: Hermes lives behind a <strong>messaging gateway</strong>. You talk to it from Telegram, Discord, Slack, WhatsApp, Signal, email, or its own terminal (CLI/TUI), and that same process manages sessions, runs cron-style scheduled tasks, and dispatches subagents. It is, itself, the agent: it brings its own reasoning loop and is model-agnostic — you can plug in Nous Portal, OpenRouter, OpenAI, or your own endpoint.</p>
+
+    <h2>What SentinelX is</h2>
+    <p>SentinelX <strong>is not an agent</strong>. It's the governed bridge between the AI you already use and your servers. Concretely, it's an open-source <strong>MCP server</strong> (Model Context Protocol, Apache-2.0) that exposes Linux, macOS, and Windows hosts to any MCP-compatible client — Claude, ChatGPT, and others.</p>
+    <p>You don't bring a new brain: you use the one you already have. You open your usual LLM and ask it to operate a machine; the model reasons, and SentinelX enforces the policy. Each host decides what it exposes: an explicit command allowlist, filesystem paths in read-only or read/write mode, services with permitted actions, structured file operations, and <em>playbooks</em> that describe safe, repeatable procedures. If an operation falls outside that policy, SentinelX rejects it at the agent boundary.</p>
+    <blockquote>The model reasons. SentinelX enforces the policy. The server stays in control.</blockquote>
+
+    <h2>The core difference: who are you talking to?</h2>
+    <p>This is the distinction you feel most in day-to-day use.</p>
+    <p>With <strong>Hermes</strong>, you talk to <strong>the agent</strong>. To interact you have to go through its surface: you open Telegram (or Discord, or its CLI) and chat with Hermes, which runs with its own model and its own memory. It's a new entity that lives in your chat apps.</p>
+    <p>With <strong>SentinelX</strong>, you talk to <strong>the LLM you already use</strong>. You open Claude — on the desktop or on your phone — and ask it to check a server, edit a site, or restart a service. Claude uses SentinelX as just another tool over MCP. There's no new chat to live in and no new assistant to learn: it's the same model you already know, now with hands on your infrastructure.</p>
+    <p>Put briefly:</p>
+    <blockquote>Hermes brings the brain and asks you for a channel to talk to it. SentinelX brings the policy and uses the brain you already have.</blockquote>
+
+    <h2>In a table</h2>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>SentinelX</th><th>Hermes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>What it is</td><td><strong>Governed bridge</strong> (MCP server) to your hosts</td><td><strong>Autonomous agent</strong> that runs on its own</td></tr>
+        <tr><td>How you talk to it</td><td>From your LLM client (Claude, ChatGPT) over MCP</td><td>From its gateway: Telegram, Discord, CLI, etc.</td></tr>
+        <tr><td>Where it reasons</td><td>In the LLM you choose (BYO-LLM)</td><td>In its own built-in agent loop</td></tr>
+        <tr><td>Memory</td><td>Whatever your client provides; SentinelX is stateless by design</td><td>Persistent and its own, grows across sessions</td></tr>
+        <tr><td>Reusable capabilities</td><td>Host-defined playbooks</td><td>Self-generated skills (agentskills.io)</td></tr>
+        <tr><td>Security model</td><td>Host-defined capabilities: allowlists, r/rw paths, services</td><td>Container isolation + command approval</td></tr>
+        <tr><td>Models</td><td>Agnostic (any MCP client)</td><td>Agnostic (Nous Portal, OpenRouter, OpenAI…)</td></tr>
+        <tr><td>License</td><td>Apache-2.0</td><td>MIT</td></tr>
+        <tr><td>Best for</td><td>Operating real infrastructure under explicit policy</td><td>An always-on personal assistant that follows you</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>What they have in common</h2>
+    <ul>
+      <li><strong>Open-source and self-hosted.</strong> Both run on your own machine; your data doesn't live in a third party's cloud.</li>
+      <li><strong>Model-agnostic.</strong> Neither locks you into a single LLM provider.</li>
+      <li><strong>They let an AI operate real infrastructure</strong>, not just chat about it.</li>
+      <li><strong>Both have a notion of reusable capabilities:</strong> skills in Hermes, playbooks in SentinelX.</li>
+      <li><strong>Cross-platform</strong> in the broad sense: both target Linux, macOS, and Windows.</li>
+    </ul>
+
+    <h2>How they differ</h2>
+    <ul>
+      <li><strong>The brain.</strong> Hermes brings its own agent; SentinelX uses the LLM you already have. One adds a new assistant, the other gives tools to the one you already use.</li>
+      <li><strong>The surface.</strong> You reach Hermes through its gateway (chat or its own CLI); you reach SentinelX from your usual MCP client.</li>
+      <li><strong>The center of gravity.</strong> Hermes is designed as a personal assistant that learns and accumulates; SentinelX is designed as a control plane for operating machines under clear rules.</li>
+      <li><strong>The security model.</strong> Hermes isolates via containers and asks for command approval; SentinelX starts from the premise that <em>the host defines the limits</em>: nothing exists unless the operator explicitly exposed it.</li>
+    </ul>
+
+    <h2>Which one is right for you?</h2>
+    <p>It's not a zero-sum fight; it depends on what you're after.</p>
+    <p>Choose <strong>Hermes</strong> if you want an always-on AI companion that lives in your chat apps, learns from you over time, and builds up its own repertoire of skills. It's a great autonomous personal assistant.</p>
+    <p>Choose <strong>SentinelX</strong> if what you want is for <em>your current LLM</em> to operate real infrastructure under an explicit, server-defined policy — especially if you run a fleet of machines or work in a team and care about fine-grained control over what the AI can and can't touch. You're not adding a new agent: you're giving hands, with limits, to the model you already use every day.</p>
+    <p>And since SentinelX integrates with any MCP client, it coexists happily with the rest of your AI stack instead of competing to be the only one.</p>
+
+    <hr>
+    <p>The conversation with an AI is comfortable on either side. The difference is what happens when that AI touches a real machine. Hermes puts the emphasis on the agent that grows; SentinelX puts it on the policy that protects. If that's your priority, the choice becomes simple.</p>
   </article>
   <div class="article-footer-cta">
-    <p>SentinelX is open source (Apache-2.0). Connect it to your own Linux servers in about a minute:</p>
+    <p>SentinelX is open source (Apache-2.0). Connect your own Linux, macOS, or Windows host in a couple of minutes and talk to it from the LLM you already use:</p>
     <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | bash</div>
+    <p style="margin-top:1rem;font-size:0.85rem;color:var(--fg2);">On Windows, run the PowerShell installer from <a href="https://get.sentinelx.app" style="color:var(--accent);">get.sentinelx.app</a>.</p>
   </div>
 </div>
 <footer>

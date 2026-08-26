@@ -181,7 +181,7 @@
 <hr />
 <h2>Installing it</h2>
 <p>Here's the part where I stop philosophizing. Standing SentinelX up on a host is one line:</p>
-<pre><code class="language-bash">curl -fsSL https://get.sentinelx.app | sudo bash
+<pre><code class="language-bash">curl -fsSL https://get.sentinelx.app | bash
 </code></pre>
 <p>That runs the installer, which sets up the dedicated OS user, drops the agent into <code>/opt/sentinelx-cloud-core</code>, writes a starting policy to <code>/etc/sentinelx/config.yaml</code>, and registers a systemd service so the agent survives reboots. You'll authenticate during the install to attach the host to your account. Do it again on a second server and that box joins the same account automatically.</p>
 <p>Once the agent is connected, you wire it up to your LLM. SentinelX exposes an MCP endpoint:</p>
@@ -199,7 +199,7 @@
   </article>
   <div class="article-footer-cta">
     <p>SentinelX is open source (Apache-2.0). Connect it to your own Linux servers in about a minute:</p>
-    <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | sudo bash</div>
+    <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | bash</div>
   </div>
 </div>
 <footer>
