@@ -157,7 +157,7 @@
     <p>La forma de usarlo es lo característico: Hermes vive detrás de un <strong>gateway de mensajería</strong>. Le hablás desde Telegram, Discord, Slack, WhatsApp, Signal, email o su propia terminal (CLI/TUI), y ese mismo proceso maneja las sesiones, corre tareas programadas tipo cron y despacha subagentes. Es, en sí mismo, el agente: trae su propio loop de razonamiento y es agnóstico del modelo —podés enchufarle Nous Portal, OpenRouter, OpenAI o tu propio endpoint—.</p>
 
     <h2>Qué es SentinelX</h2>
-    <p>SentinelX <strong>no es un agente</strong>. Es el puente gobernado entre la IA que ya usás y tus servidores. Concretamente, es un <strong>servidor MCP</strong> (Model Context Protocol) open-source (Apache-2.0) que expone hosts Linux, macOS y Windows a cualquier cliente compatible con MCP —Claude, ChatGPT y otros—.</p>
+    <p>SentinelX <strong>no es un agente</strong>. Es el puente gobernado entre la IA que ya usás y tus servidores. Concretamente, es un <strong>servidor MCP</strong> (Model Context Protocol) que expone hosts Linux, macOS y Windows a cualquier cliente compatible con MCP —Claude, ChatGPT y otros— a través de un agente open-source (Apache-2.0) que instalás en cada host.</p>
     <p>No traés un cerebro nuevo: usás el que ya tenés. Abrís tu LLM de siempre y le pedís que opere una máquina; el modelo razona y SentinelX aplica la política. Cada host decide qué expone: una allowlist explícita de comandos, rutas del filesystem en solo-lectura o lectura/escritura, servicios con acciones permitidas, operaciones estructuradas sobre archivos y <em>playbooks</em> que describen procedimientos seguros y repetibles. Si una operación queda fuera de esa política, SentinelX la rechaza en el límite del agente.</p>
     <blockquote>El modelo razona. SentinelX aplica la política. El servidor mantiene el control.</blockquote>
 
@@ -182,7 +182,7 @@
         <tr><td>Capacidades reutilizables</td><td>Playbooks definidos por el host</td><td>Skills autogeneradas (agentskills.io)</td></tr>
         <tr><td>Modelo de seguridad</td><td>Capacidades definidas por el host: allowlists, rutas r/rw, servicios</td><td>Aislamiento por contenedor + aprobación de comandos</td></tr>
         <tr><td>Modelos</td><td>Agnóstico (cualquier cliente MCP)</td><td>Agnóstico (Nous Portal, OpenRouter, OpenAI…)</td></tr>
-        <tr><td>Licencia</td><td>Apache-2.0</td><td>MIT</td></tr>
+        <tr><td>Licencia</td><td>Agente Apache-2.0 &middot; hub comercial</td><td>MIT</td></tr>
         <tr><td>Ideal para</td><td>Operar infraestructura real bajo política explícita</td><td>Asistente personal siempre encendido que te sigue</td></tr>
       </tbody>
     </table>
@@ -215,7 +215,7 @@
     <p>La conversación con una IA es cómoda de un lado y del otro. La diferencia está en qué pasa cuando esa IA toca una máquina real. Hermes pone el énfasis en el agente que crece; SentinelX lo pone en la política que protege. Si tu prioridad es esto último, la elección se vuelve simple.</p>
   </article>
   <div class="article-footer-cta">
-    <p>SentinelX es open source (Apache-2.0). Conectá tu propio host Linux, macOS o Windows en un par de minutos y hablale desde el LLM que ya usás:</p>
+    <p>El agente de SentinelX es open source (Apache-2.0). Conectá tu propio host Linux, macOS o Windows en un par de minutos y hablale desde el LLM que ya usás:</p>
     <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | bash</div>
     <p style="margin-top:1rem;font-size:0.85rem;color:var(--fg2);">En Windows, ejecut&aacute; el instalador de PowerShell desde <a href="https://get.sentinelx.app" style="color:var(--accent);">get.sentinelx.app</a>.</p>
   </div>
