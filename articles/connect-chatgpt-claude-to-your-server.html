@@ -173,6 +173,11 @@ agent on your host</code></pre>
 <p>One host is free, for as long as you want it. Paid plans start at $5/month when you need several machines live at the same time. The agent itself is open source (Apache-2.0), so you can read exactly what runs on your box.</p>
 <p>Plans, docs and downloads live at <a href="https://sentinelx.app">sentinelx.app</a>.</p>
 
+<figure style="margin:2.5rem 0 0;">
+  <img src="https://sentinelx.pensa.ar/sentinelx-ram.png" alt="Claude using SentinelX to report a server's RAM and disk usage, noting that the free command was not in the allowlist." loading="lazy" style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:6px;">
+  <figcaption style="margin-top:0.7rem;font-family:var(--mono);font-size:0.75rem;line-height:1.6;color:var(--fg3);">SentinelX in Claude: the allowlist at work — <code>free</code> wasn't permitted, so the agent used <code>df -h</code> and <code>/proc/meminfo</code> instead.</figcaption>
+</figure>
+
     <div class="article-footer-cta">
       <p>Ready to try it? Install on any host in one line:</p>
       <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | bash</div>
