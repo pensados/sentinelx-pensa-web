@@ -43,13 +43,17 @@
   footer{margin-top:44px;padding:24px 0 40px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--dim);}
   footer a{color:var(--dim);text-decoration:none;}
   footer a:hover{color:var(--teal);}
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .nav-logo .sx-cursor, .brand .sx-cursor, .sx-cursor { animation: blink 1.2s step-end infinite; }
+  @media (prefers-reduced-motion: reduce) { .sx-cursor { animation: none; opacity: 1 } }
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="logo" href="/">
-      <svg viewBox="6 30 115 68" width="47" height="28" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(64 64) scale(1.35) skewX(-12)"><path d="M -13 -13 C -13 -21 -35 -22 -35 -10 C -35 -1 -13 0 -13 10 C -13 22 -35 21 -35 13" stroke-width="3.5"/><path d="M 0 -19 L 18 0 L 0 19" stroke-width="8"/><rect x="28" y="-10" width="8" height="20" rx="1" fill="currentColor" stroke="none"/></g></svg>
+      <svg viewBox="6 30 115 68" width="47" height="28" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(64 64) scale(1.35) skewX(-12)"><path d="M -13 -13 C -13 -21 -35 -22 -35 -10 C -35 -1 -13 0 -13 10 C -13 22 -35 21 -35 13" stroke-width="3.5"/><path d="M 0 -19 L 18 0 L 0 19" stroke-width="8"/><rect class="sx-cursor" x="28" y="-10" width="8" height="20" rx="1" fill="currentColor" stroke="none"/></g></svg>
       SentinelX <span style="color:var(--dim);font-weight:400;">MCP</span>
     </a>
   </header>
