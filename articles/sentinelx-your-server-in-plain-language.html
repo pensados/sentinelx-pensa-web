@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelX: Your Server, in Plain Language — SentinelX MCP</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="What changes when your AI can work directly on your servers: diagnosis, configuration, deploys, files, saved context and Cloudflare, on your terms. For people new to servers and for seasoned sysadmins.">
+<meta name="author" content="pensa.ar">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sentinelx.pensa.ar/articles/sentinelx-your-server-in-plain-language.html">
+<link rel="alternate" hreflang="en" href="https://sentinelx.pensa.ar/articles/sentinelx-your-server-in-plain-language.html">
+<link rel="alternate" hreflang="es" href="https://sentinelx.pensa.ar/articles/sentinelx-tu-servidor-en-lenguaje-natural.html">
+<link rel="alternate" hreflang="x-default" href="https://sentinelx.pensa.ar/articles/sentinelx-your-server-in-plain-language.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sentinelx.pensa.ar/articles/sentinelx-your-server-in-plain-language.html">
+<meta property="og:title" content="SentinelX: Your Server, in Plain Language">
+<meta property="og:description" content="Your AI already knows a lot about servers. SentinelX gives it what it was missing: the ability to actually work on them, on your terms.">
+<meta property="og:site_name" content="SentinelX MCP">
+<meta property="og:image" content="https://sentinelx.pensa.ar/og-image.png">
+<meta property="article:published_time" content="2026-10-20">
+<meta property="article:author" content="pensa.ar">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SentinelX: Your Server, in Plain Language">
+<meta name="twitter:description" content="Your AI already knows a lot about servers. SentinelX gives it what it was missing: the ability to actually work on them, on your terms.">
+<meta name="twitter:image" content="https://sentinelx.pensa.ar/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14; --bg2: #131821; --bg3: #1a212d;
+    --surface: #131821; --surface2: #1a212d;
+    --border: #1f2937; --border2: #2a3441;
+    --fg: #e6edf3; --fg2: #94a3b8; --fg3: #64748b;
+    --accent: #5eead4; --accent2: #2dd4bf;
+    --accent-dim: rgba(94,234,212,0.08); --accent-dim2: rgba(94,234,212,0.15);
+    --amber: #fbbf24; --blue: #60a5fa; --red: #f87171; --purple: #a78bfa;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); background-image: radial-gradient(ellipse 900px 500px at 50% -120px, rgba(94,234,212,0.06), transparent 70%); background-attachment: fixed; color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px; opacity: 0.25; pointer-events: none; z-index: 0;
+  }
+  * { position: relative; z-index: 1; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  nav { border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); background: rgba(10,14,20,0.85); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .nav-logo { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .nav-logo .sx-cursor, .brand .sx-cursor, .sx-cursor { animation: blink 1.2s step-end infinite; }
+  @media (prefers-reduced-motion: reduce) { .sx-cursor { animation: none; opacity: 1 } }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--fg2); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  .nav-cta { font-family: var(--mono); font-size: 0.75rem; color: var(--bg); background: var(--accent); padding: 0.4rem 1rem; text-decoration: none; font-weight: 600; letter-spacing: 0.05em; transition: background 0.2s; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+  .nav-cta:hover { background: var(--accent2); }
+  .nav-toggle-cb { display: none; }
+  .nav-toggle { display: none; }
+  @media (max-width: 820px) {
+    .nav-inner { flex-wrap: wrap; }
+    .nav-toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 42px; height: 42px; margin-left: auto; cursor: pointer; }
+    .nav-toggle span { display: block; height: 2px; width: 24px; background: var(--accent); transition: transform 0.25s, opacity 0.25s; }
+    .nav-links { display: none; flex-basis: 100%; flex-direction: column; gap: 0; margin-top: 0.5rem; border-top: 1px solid var(--border); }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 0.9rem 0.25rem; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
+    .nav-cta { display: none; }
+    .nav-toggle-cb:checked ~ .nav-links { display: flex; }
+    .nav-toggle-cb:checked ~ .nav-cta { display: inline-flex; justify-content: center; flex-basis: 100%; margin-top: 0.75rem; }
+    .nav-toggle-cb:checked ~ .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle-cb:checked ~ .nav-toggle span:nth-child(2) { opacity: 0; }
+    .nav-toggle-cb:checked ~ .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+  footer { border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-left { font-family: var(--mono); font-size: 0.75rem; color: var(--fg3); }
+  .footer-left strong { color: var(--accent); font-weight: 500; }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  .article-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 2rem; }
+  .article-back { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; display: inline-block; margin-bottom: 2.5rem; transition: color 0.2s; }
+  .article-back:hover { color: var(--accent); }
+  .article-label { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+  .article-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  article h1 { font-family: var(--mono); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 1.25rem; }
+  .article-dek { font-family: var(--sans); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--fg2); line-height: 1.6; margin-bottom: 1.75rem; }
+  .article-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--fg3); letter-spacing: 0.05em; padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+  .article-meta span { color: var(--accent); }
+  article { font-size: 1.06rem; line-height: 1.8; color: var(--fg); }
+  article h2 { font-family: var(--mono); font-size: 1.4rem; font-weight: 500; color: var(--fg); margin: 3rem 0 1rem; letter-spacing: -0.01em; }
+  article h3 { font-family: var(--sans); font-size: 1.15rem; font-weight: 600; color: var(--fg); margin: 2rem 0 0.75rem; }
+  article p { margin: 0 0 1.4rem; color: var(--fg); font-weight: 300; }
+  article strong { color: var(--fg); font-weight: 600; }
+  article a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border2); }
+  article a:hover { border-color: var(--accent); }
+  article ul, article ol { margin: 0 0 1.4rem; padding-left: 1.4rem; }
+  article li { margin: 0.5rem 0; font-weight: 300; }
+  article li::marker { color: var(--accent); }
+  article blockquote { border-left: 2px solid var(--accent); background: var(--accent-dim); padding: 1rem 1.5rem; margin: 1.75rem 0; font-style: italic; color: var(--fg2); }
+  article code { font-family: var(--mono); font-size: 0.85em; background: var(--surface); color: var(--accent); padding: 2px 6px; border-radius: 3px; }
+  article pre { background: var(--bg2); border: 1px solid var(--border); padding: 1.25rem 1.5rem; margin: 1.75rem 0; overflow-x: auto; box-shadow: 0 0 30px rgba(94,234,212,0.03); }
+  article pre::before { content: '● ● ●'; display: block; font-size: 0.6rem; color: var(--fg3); margin-bottom: 1rem; letter-spacing: 0.3em; }
+  article pre code { background: none; color: var(--fg); padding: 0; font-size: 0.85rem; line-height: 1.7; }
+  article hr { border: none; text-align: center; margin: 3rem 0; }
+  article hr::before { content: '* * *'; letter-spacing: 0.6em; color: var(--fg3); }
+  .article-footer-cta { margin-top: 3rem; padding: 1.75rem; background: var(--bg2); border: 1px solid var(--accent); box-shadow: 0 0 40px rgba(94,234,212,0.06); }
+  .article-footer-cta p { margin: 0 0 1rem; font-size: 0.95rem; color: var(--fg2); font-weight: 300; }
+  .article-footer-cta .install { font-family: var(--mono); font-size: 0.85rem; color: var(--fg); }
+  .article-footer-cta .install .prompt { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 1.75rem 0; border: 1px solid var(--border); }
+  article table { width: 100%; border-collapse: collapse; font-size: 0.92rem; line-height: 1.55; min-width: 560px; }
+  article th { font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-align: left; padding: 0.75rem 1rem; background: var(--bg2); border-bottom: 1px solid var(--border2); }
+  article td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; font-weight: 300; }
+  article tr:last-child td { border-bottom: none; }
+  article td:first-child { font-weight: 500; white-space: nowrap; }
+  article td:last-child { color: var(--fg2); font-style: italic; }
+  @media (max-width: 640px) {
+    article table { min-width: 0; }
+    article thead { display: none; }
+    article tr { display: block; padding: 0.9rem 1rem; border-bottom: 1px solid var(--border); }
+    article tr:last-child { border-bottom: none; }
+    article td { display: block; padding: 0.15rem 0; border: none; white-space: normal; }
+    article td:first-child { white-space: normal; color: var(--accent); }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><svg viewBox="6 30 115 68" width="47" height="28" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(64 64) scale(1.35) skewX(-12)"><path d="M -13 -13 C -13 -21 -35 -22 -35 -10 C -35 -1 -13 0 -13 10 C -13 22 -35 21 -35 13" stroke-width="3.5"/><path d="M 0 -19 L 18 0 L 0 19" stroke-width="8"/><rect class="sx-cursor" x="28" y="-10" width="8" height="20" rx="1" fill="currentColor" stroke="none"/></g></svg>SentinelX</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-cb" aria-hidden="true">
+    <label for="nav-toggle" class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#security">Security</a></li>
+      <li><a href="/#clients">AI clients</a></li>
+      <li><a href="/articles/" class="active">Articles</a></li>
+    </ul>
+    <a class="nav-cta" href="https://get.sentinelx.app/about" target="_blank">Start free →</a>
+  </div>
+</nav>
+<div class="article-wrap">
+  <a class="article-back" href="/articles/">← All articles</a>
+  <div class="article-label">Article</div>
+  <article>
+    <h1>SentinelX: Your Server, in Plain Language</h1>
+    <p class="article-dek">Your AI already knows a lot about servers. SentinelX gives it what it was missing: the ability to actually work on them, on your terms.</p>
+    <div class="article-meta">Oct 20, 2026 · by <span>pensa.ar</span> · ~7 min read</div>
+
+    <p>Anyone who has ever run a server knows this scene. Something breaks. You open a terminal, SSH in, dig through logs, copy an error, paste it into ChatGPT or Claude. It comes back with three hypotheses and a command. You copy the command, run it, copy the output, paste it back. Ten rounds later the problem is solved, and you were the cable between the AI and the machine.</p>
+    <p>SentinelX removes that cable. It's an MCP hub that connects your AI assistant (ChatGPT, Claude, Grok, Cursor, VS Code, Codex and others) to your Linux, macOS and Windows servers and computers. You install a lightweight, open-source agent on each machine, connect the hub to your AI once, and from then on the conversation stops being &ldquo;tell me what command to run&rdquo; and becomes &ldquo;take a look and tell me what you found.&rdquo;</p>
+    <p>It sounds like a small difference. In practice, it changes how you work.</p>
+
+    <h2>An email that asked for nothing</h2>
+    <p>In early October, a message arrived at the support inbox. It wasn't a bug report or a question. It was signed by Ade, a user who runs his homelab with SentinelX:</p>
+    <blockquote>&ldquo;Not a support question or issue. This is just a quick email to say that SentinelX is by far the best thing I've spent money on for my homelab setup. The amount of time it has saved me, and the help it provides is invaluable.&rdquo;</blockquote>
+    <p>The next day he wrote to me directly, because a personal email felt more appropriate than one to support:</p>
+    <blockquote>&ldquo;It's saved me so much time, effort, sanity and it works so well. I thought ChatGPT was good, you've made it brilliant!&rdquo;</blockquote>
+    <p>SentinelX is something I build and run on my own, from Buenos Aires. Messages like that don't come often, and this one carried me through the week. Thank you, Ade.</p>
+    <p>I asked him how he uses it, and his answer is a good example of what happens when an AI can see a whole environment at once:</p>
+    <ul>
+      <li>A home server running <strong>Proxmox</strong>, with <strong>Home Assistant OS</strong> and <strong>Pi-hole</strong> as LXC containers, plus an Ubuntu VM running <strong>Jellyfin</strong>, <strong>Immich</strong> and the family's media and data store.</li>
+      <li>A <strong>Raspberry Pi</strong> that drives a dashboard console (Grafana and others) and serves as secondary DNS with a second Pi-hole.</li>
+      <li>An <strong>old Windows laptop</strong> he uses as an admin PC, reachable over Tailscale.</li>
+    </ul>
+    <p>Every machine runs a SentinelX agent. According to Ade, it has fixed many problems for him, including recently rebuilding a RAID array after a failure. And he points out something we didn't design with his setup in mind, but that captures the product well:</p>
+    <blockquote>&ldquo;I love the way the agents work together, particularly with having a dedicated admin PC: the AI just switches agents so it's got a secondary way of testing and accessing devices as a backup.&rdquo;</blockquote>
+    <p>In other words: if one machine stops responding, the AI isn't blind. It hops to another machine on the network and checks from there. Nobody told it to. It worked it out, because it had the tools.</p>
+
+    <h2>If you're new to servers</h2>
+    <p>You don't need to know by heart what <code>journalctl -u nginx --since "1 hour ago"</code> does. You need to know what you want to achieve. SentinelX turns that intent into concrete actions on your machine, and shows you every step.</p>
+    <p>It handles the basics:</p>
+    <ul>
+      <li>&ldquo;How's my server doing? Disk, memory, anything down?&rdquo;</li>
+      <li>&ldquo;Tidy up my Downloads folder: installers in one folder, PDFs in another, and tell me what's safe to delete.&rdquo;</li>
+      <li>&ldquo;Why has my site been slow since yesterday?&rdquo;</li>
+    </ul>
+    <p>And it's a way to learn. When the AI diagnoses something, you see which command it ran, what it found and why it decided what it did. It's like working next to someone experienced who explains as they go.</p>
+    <p>The key point: <strong>you decide what's allowed</strong>. The agent is deny-by-default. Out of the box it only runs commands from an allowlist, only reads and writes in the folders you enable, and every attempt is logged, refused ones included. If the AI asks for something that isn't allowed, the refusal tells it what would need to be enabled, and the decision stays yours.</p>
+    <p>No ports to open, no fighting with your router either. The agent doesn't listen on any port: it connects outward, to the hub. It works behind NAT, behind a firewall, or on your home network.</p>
+
+    <h2>If you've been running servers for years</h2>
+    <p>You already know how to do all of this by hand. The question isn't whether you can, but how much of your day goes to the mechanical part: correlating logs across three hosts, checking the nginx config before a reload, creating the DNS record for a new subdomain, spinning up a VM for a test, deploying and confirming that the running process is the one you just shipped.</p>
+    <p>With SentinelX, all of that becomes a conversation the AI carries out and you supervise:</p>
+    <ul>
+      <li><strong>Code and test on the server itself.</strong> The AI clones a repo, makes structured edits, runs the tests and the build right there, reviews the diff and pushes with the host's own SSH identity. Nothing to sync with your laptop.</li>
+      <li><strong>Verified deploys.</strong> Ask for the deploy and the check in the same sentence: validate the config, restart the service, confirm it responds.</li>
+      <li><strong>Cloudflare from the chat.</strong> Create, edit or delete DNS records, review a zone's rules and security events. &ldquo;Publish this app at api.mydomain.com&rdquo; no longer means a trip to the dashboard.</li>
+      <li><strong>New machines on request.</strong> With a DigitalOcean or Hetzner integration, the AI creates the VM and enrolls it in SentinelX automatically. Before creating anything, it shows you the cost and waits for your go-ahead.</li>
+      <li><strong>Long jobs without waiting around.</strong> A backup, a heavy build or a migration can run in the background and ping you on Telegram or by email when it's done.</li>
+    </ul>
+    <p>And for anyone who is, rightly, wary of handing a model a shell: the agent is open source (Apache-2.0), and the policy lives on your server, in <code>/etc/sentinelx/config.yaml</code>. You can keep it in strict allowlist mode, disable specific operations, or open it up fully on a development host. The final boundary is the operating-system account the agent runs as: whatever that user can't do, the AI can't either.</p>
+
+    <h2>The tools that change the game</h2>
+    <p>SentinelX exposes dozens of tools to the AI. These are the ones that make the biggest difference day to day:</p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Capability</th><th>What it solves</th><th>Example request</th></tr></thead>
+      <tbody>
+        <tr><td>Upload and download files</td><td>The file never goes through the chat: the AI creates a temporary, single-use link and the file travels straight between your browser and the server, up to 512 MB, checksum verified.</td><td>&ldquo;Give me a link to upload the dump to /srv/backups&rdquo;</td></tr>
+        <tr><td>Saved contexts</td><td>The AI saves the state of a piece of work (goal, findings, next steps, hosts involved) and picks it up another day, in another chat.</td><td>&ldquo;Save the context for this migration&rdquo;</td></tr>
+        <tr><td>Many hosts at once</td><td>One conversation sees the whole fleet: it compares, hops between machines, tests from a second box.</td><td>&ldquo;Which services are down across all my hosts?&rdquo;</td></tr>
+        <tr><td>Host-to-host transfer</td><td>Copies files from one server to another with hash verification, without passing through your computer.</td><td>&ldquo;Move the backup from web-01 to nas-01&rdquo;</td></tr>
+        <tr><td>Git on the server</td><td>Clone, diff, patch and push right on the host, with its own credentials.</td><td>&ldquo;Resolve the merge conflict and push&rdquo;</td></tr>
+        <tr><td>See images and PDFs</td><td>The AI can look at a screenshot, a chart or a PDF sitting on the server, not just read text.</td><td>&ldquo;What does the chart the cron job generated show?&rdquo;</td></tr>
+        <tr><td>Cloudflare</td><td>DNS records, rules and security events for your zones.</td><td>&ldquo;Create a staging subdomain pointing to this host&rdquo;</td></tr>
+        <tr><td>Cloud VMs</td><td>Creates machines on DigitalOcean or Hetzner, already enrolled in SentinelX, with the cost confirmed first.</td><td>&ldquo;Spin up a small VM in Frankfurt for testing&rdquo;</td></tr>
+        <tr><td>Notifications</td><td>Telegram and email for background jobs or alerts.</td><td>&ldquo;Run the backup and ping me on Telegram&rdquo;</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Contexts deserve their own paragraph. AIs forget: every new chat starts from zero. With SentinelX, the operational knowledge of your infrastructure (what was decided, what's still pending, which host runs what) is saved in your account. A context restores knowledge, not permissions: before acting, the AI rechecks the real state of the hosts.</p>
+
+    <h2>An AI with hands</h2>
+    <p>A language model with no access to your systems is a consultant on the phone: it knows a lot, but it depends on what you describe. With SentinelX it observes directly, and that changes the quality of what it can do on three fronts.</p>
+    <p><strong>Diagnosis.</strong> Instead of guessing from a pasted error, the AI reads the logs, checks service status, compares the configuration with a host that works, and follows the trail to the cause. When Ade had to rebuild a RAID array after a failure, the AI didn't hand him a generic tutorial: it worked on his actual disks and configuration.</p>
+    <p><strong>Configuration.</strong> Editing an nginx file, a docker-compose or a systemd unit stops being a risky copy-paste. The AI makes structured changes, validates before reloading, and shows you exactly what changed.</p>
+    <p><strong>Integration.</strong> This is where SentinelX becomes hard to replace. A single request can cross several layers: bring up a service on one host, give it a subdomain on Cloudflare, configure the reverse proxy on another host, check that it responds from the outside, and ping you on Telegram when it's all done. Linux servers, a Mac, a Windows PC, a Raspberry Pi: to the AI they're all hosts in the same fleet, in the same conversation.</p>
+    <p>And it works with the AI you already use. No new assistant, no new interface to learn: SentinelX connects to ChatGPT, Claude, Grok, Cursor, VS Code, Codex and any MCP-compatible client. As Ade put it, it doesn't replace ChatGPT: it makes it brilliant.</p>
+
+    <h2>Getting started</h2>
+    <p>It takes a few minutes, and your first host is free, no card required.</p>
+    <ol>
+      <li><strong>Connect SentinelX to your AI.</strong>
+        <ul>
+          <li>In ChatGPT, search for SentinelX in the apps directory, or go straight to <a href="https://chatgpt.com/apps/sentinelx/asdk_app_69f63e01766881919640f03b5e7912a5">its ChatGPT page</a> and click Connect.</li>
+          <li>In Claude, Grok or any other MCP-compatible client, add a custom connector with this URL: <code>https://mcp.sentinelx.app/mcp/mcp</code></li>
+        </ul>
+      </li>
+      <li><strong>Ask it for the install command.</strong> Tell your AI something like: &ldquo;I want to connect my Ubuntu server to SentinelX, give me the install command.&rdquo; SentinelX generates a command with a one-time token for Linux, macOS or Windows, depending on your system.</li>
+      <li><strong>Run it on your machine.</strong> The installer registers the agent as a service and enrolls it in your account. Within seconds, the host is available.</li>
+      <li><strong>Start talking.</strong> &ldquo;How's my server doing?&rdquo; is a good first question.</li>
+    </ol>
+    <p>More details, plans and documentation at <a href="https://sentinelx.app/">sentinelx.app</a>.</p>
+
+    <h2>Built by someone who uses it every day</h2>
+    <p>SentinelX wasn't born in a product meeting. It came from my own need to run my servers without being the cable between the AI and the terminal. Today SentinelX maintains itself with SentinelX: the hub, its deploys, this site and the article you're reading all went through it.</p>
+    <p>Every design decision comes from that daily use. Deny-by-default, because a server is serious business. No open ports, because nobody should have to expose their network to try something out. Every attempt logged, because when something goes wrong you want to know exactly what happened. And no new interface to learn, because the best tool is the one that fits the way you already work.</p>
+    <p>Today there are more than 3,000 servers connected. Behind them are developers, IT teams and, often, someone like Ade: a home network with family photos, a media server and a Pi-hole that simply has to work.</p>
+    <p>If you've been running servers for years, SentinelX gives you time back. If you're just starting out, it gives you a knowledgeable companion that explains as it goes. Either way, you decide how far it reaches.</p>
+  </article>
+  <div class="article-footer-cta">
+    <p>Connect SentinelX to your AI and ask it for the install command for your system. Or install the agent directly on Linux or macOS:</p>
+    <div class="install"><span class="prompt">$</span> curl -fsSL https://get.sentinelx.app | bash</div>
+    <p style="margin-top:1rem;font-size:0.85rem;color:var(--fg2);">On Windows, run the PowerShell installer from <a href="https://get.sentinelx.app" style="color:var(--accent);">get.sentinelx.app</a>.</p>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>SentinelX</strong> · Apache 2.0-licensed agent<br>
+      a <a href="https://pensa.ar/legal/marca/" style="color:var(--accent);text-decoration:none;">Pensa Software®</a> product · built by <a href="https://pensa.ar" style="color:var(--accent);text-decoration:none;">pensa.ar</a>
+    </div>
+    <div class="footer-links">
+      <a href="/">home</a>
+      <a href="/articles/">articles</a>
+      <a href="https://get.sentinelx.app/about" target="_blank">install</a>
+      <a href="https://mcp.sentinelx.app/dashboard" target="_blank">dashboard</a>
+      <a href="https://github.com/pensados/sentinelx-cloud-core" target="_blank">agent (cloud)</a>
+      <a href="https://modelcontextprotocol.io" target="_blank">MCP</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
